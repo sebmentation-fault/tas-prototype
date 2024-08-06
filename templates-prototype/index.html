@@ -11,84 +11,167 @@
 <body class="flex flex-col h-screen justify-between">
     <header class="bg-sky-50">header content here</header>
     <main class="flex-1 p-8">
-        <h1 class="text-center text-5xl">Welcome, Username</h1>
-        <ul>
-            <li>
-                <p>Events Near You This Week</p>
-                <ul class="gap-4 overflow-x-scroll whitespace-nowrap *:inline-block *:w-32 *:h-32 *:bg-gray-500">
-                    <a href="./event.html">
-                        <li>Event 1</li>
-                    </a>
-                    <li>Event 2</li>
-                    <li>Event 3</li>
-                    <li>Event 4</li>
-                    <li>Event 5</li>
-                    <li>Event 6</li>
-                    <li>Event 7</li>
-                    <li>Event 8</li>
-                    <li>Event 9</li>
-                    <li>Event 10</li>
-                    <li>Event 11</li>
-                    <li>Event 12</li>
-                    <li>Event 13</li>
-                    <li>Event 14</li>
-                    <li>Event 15</li>
-                    <li>Event 16</li>
-                    <li>Event 17</li>
-                    <li>Event 18</li>
-                    <li>Event 19</li>
-                </ul>
-            </li>
-            <li>
-                <p>Events Near You, Later in the Month</p>
-                <ul class="gap-4 overflow-x-scroll whitespace-nowrap *:inline-block *:w-32 *:h-32 *:bg-gray-500">
-                    <li>Event 1</li>
-                    <li>Event 2</li>
-                    <li>Event 3</li>
-                    <li>Event 4</li>
-                    <li>Event 5</li>
-                    <li>Event 6</li>
-                    <li>Event 7</li>
-                    <li>Event 8</li>
-                    <li>Event 9</li>
-                    <li>Event 10</li>
-                    <li>Event 11</li>
-                    <li>Event 12</li>
-                    <li>Event 13</li>
-                    <li>Event 14</li>
-                    <li>Event 15</li>
-                    <li>Event 16</li>
-                    <li>Event 17</li>
-                    <li>Event 18</li>
-                    <li>Event 19</li>
-                </ul>
-            </li>
-            <li>
-                <p>Events In The United Kingdom</p>
-                <ul class="gap-4 overflow-x-scroll whitespace-nowrap *:inline-block *:w-32 *:h-32 *:bg-gray-500">
-                    <li>Event 1</li>
-                    <li>Event 2</li>
-                    <li>Event 3</li>
-                    <li>Event 4</li>
-                    <li>Event 5</li>
-                    <li>Event 6</li>
-                    <li>Event 7</li>
-                    <li>Event 8</li>
-                    <li>Event 9</li>
-                    <li>Event 10</li>
-                    <li>Event 11</li>
-                    <li>Event 12</li>
-                    <li>Event 13</li>
-                    <li>Event 14</li>
-                    <li>Event 15</li>
-                    <li>Event 16</li>
-                    <li>Event 17</li>
-                    <li>Event 18</li>
-                    <li>Event 19</li>
+        <script>
+            // icl this javascript and tab thing was all thanks to gpt
+
+            function showTab(tabName) {
+                // Hide all tab contents
+                const contents = document.querySelectorAll('.tab-content');
+                contents.forEach(content => content.classList.add('hidden'));
+
+                // Show the selected tab content
+                document.getElementById(tabName).classList.remove('hidden');
+
+                // Update the active indicator
+                const dashboardIndicator = document.getElementById('dashboard-indicator');
+                const feedIndicator = document.getElementById('feed-indicator');
+
+                if (tabName === 'dashboard') {
+                    dashboardIndicator.classList.remove('bg-transparent');
+                    dashboardIndicator.classList.add('bg-blue-500');
+                    feedIndicator.classList.remove('bg-blue-500');
+                    feedIndicator.classList.add('bg-transparent');
+                } else {
+                    feedIndicator.classList.remove('bg-transparent');
+                    feedIndicator.classList.add('bg-blue-500');
+                    dashboardIndicator.classList.remove('bg-blue-500');
+                    dashboardIndicator.classList.add('bg-transparent');
+                }
+            }
+
+            // Initialize the first tab as active
+            document.addEventListener('DOMContentLoaded', function () {
+                showTab('dashboard'); // Set the default tab to 'dashboard'
+            });
+        </script>
+
+        <div>
+            <div class="flex items-center space-x-4 mb-4">
+                <button class="relative py-2 px-4 text-gray-700 focus:outline-none" onclick="showTab('dashboard')">
+                    Dashboard
+                    <span class="absolute left-0 right-0 bottom-0 h-1 bg-blue-500 transition-all duration-300"
+                        id="dashboard-indicator"></span>
+                </button>
+                <button class="relative py-2 px-4 text-gray-700 focus:outline-none" onclick="showTab('feed')">
+                    Feed
+                    <span class="absolute left-0 right-0 bottom-0 h-1 bg-transparent transition-all duration-300"
+                        id="feed-indicator"></span>
+                </button>
+            </div>
+
+            <div id="dashboard" class="tab-content">
+                <h1 class="text-center text-5xl">Near You</h1>
+                <ul>
+                    <li>
+                        <p>Events Near You This Week</p>
+                        <ul
+                            class="gap-4 overflow-x-scroll whitespace-nowrap *:inline-block *:w-32 *:h-32 *:bg-gray-500">
+                            <a href="./event.html">
+                                <li>Event 1</li>
+                            </a>
+                            <li>Event 2</li>
+                            <li>Event 3</li>
+                            <li>Event 4</li>
+                            <li>Event 5</li>
+                            <li>Event 6</li>
+                            <li>Event 7</li>
+                            <li>Event 8</li>
+                            <li>Event 9</li>
+                            <li>Event 10</li>
+                            <li>Event 11</li>
+                            <li>Event 12</li>
+                            <li>Event 13</li>
+                            <li>Event 14</li>
+                            <li>Event 15</li>
+                            <li>Event 16</li>
+                            <li>Event 17</li>
+                            <li>Event 18</li>
+                            <li>Event 19</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>Events Near You, Later in the Month</p>
+                        <ul
+                            class="gap-4 overflow-x-scroll whitespace-nowrap *:inline-block *:w-32 *:h-32 *:bg-gray-500">
+                            <li>Event 1</li>
+                            <li>Event 2</li>
+                            <li>Event 3</li>
+                            <li>Event 4</li>
+                            <li>Event 5</li>
+                            <li>Event 6</li>
+                            <li>Event 7</li>
+                            <li>Event 8</li>
+                            <li>Event 9</li>
+                            <li>Event 10</li>
+                            <li>Event 11</li>
+                            <li>Event 12</li>
+                            <li>Event 13</li>
+                            <li>Event 14</li>
+                            <li>Event 15</li>
+                            <li>Event 16</li>
+                            <li>Event 17</li>
+                            <li>Event 18</li>
+                            <li>Event 19</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>Events In The United Kingdom</p>
+                        <ul
+                            class="gap-4 overflow-x-scroll whitespace-nowrap *:inline-block *:w-32 *:h-32 *:bg-gray-500">
+                            <li>Event 1</li>
+                            <li>Event 2</li>
+                            <li>Event 3</li>
+                            <li>Event 4</li>
+                            <li>Event 5</li>
+                            <li>Event 6</li>
+                            <li>Event 7</li>
+                            <li>Event 8</li>
+                            <li>Event 9</li>
+                            <li>Event 10</li>
+                            <li>Event 11</li>
+                            <li>Event 12</li>
+                            <li>Event 13</li>
+                            <li>Event 14</li>
+                            <li>Event 15</li>
+                            <li>Event 16</li>
+                            <li>Event 17</li>
+                            <li>Event 18</li>
+                            <li>Event 19</li>
+                        </ul>
+
+                    </li>
                 </ul>
 
-            </li>
-        </ul>
+
+            </div>
+            <div id="feed" class="tab-content hidden">
+                <h1 class="text-center font-bold text-5xl">Global Feed</h1>
+
+                <div class="flex flex-col justify-center items-center min-h-screen mt-4">
+                    <ul class=" space-y-4 mb-4">
+                        <li class="border border-gray-300 rounded-lg p-4 bg-white shadow-md">
+                            <div class="w-44 md:w-96 h-32 rounded-t-lg bg-gray-500"></div>
+                            <p class="mt-2 text-center text-gray-700">I got to take a selfie with Peepee Poopoo!</p>
+                        </li>
+                        <li class="border border-gray-300 rounded-lg p-4 bg-white shadow-md">
+                            <div class="w-44 md:w-96 h-32 rounded-t-lg bg-gray-500"></div>
+                            <p class="mt-2 text-center text-gray-700">Caption 2</p>
+                        </li>
+                        <li class="border border-gray-300 rounded-lg p-4 bg-white shadow-md">
+                            <div class="w-44 md:w-96 h-32 rounded-t-lg bg-gray-500"></div>
+                            <p class="mt-2 text-center text-gray-700">Caption 3</p>
+                        </li>
+                        <li class="border border-gray-300 rounded-lg p-4 bg-white shadow-md">
+                            <div class="w-44 md:w-96 h-32 rounded-t-lg bg-gray-500"></div>
+                            <p class="mt-2 text-center text-gray-700">Caption 3</p>
+                        </li>
+                    </ul>
+
+                    <button class="px-4 py-2 bg-gray-200 rounded-md">Load more</button>
+                </div>
+
+            </div>
+        </div>
     </main>
     <footer class="bg-gray-800 text-white py-6">
         <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
