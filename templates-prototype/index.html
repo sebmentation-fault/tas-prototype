@@ -9,8 +9,18 @@
 </head>
 
 <body class="flex flex-col h-screen justify-between">
-    <header class="bg-sky-50">header content here</header>
+    <header class="bg-sky-50 grid grid-cols-2">
+        <span class="text-xl pl-4 pt-2">Take a Selfie</span>
+
+        <div class="flex justify-end gap-4">
+            <a href="" class="rounded-md px-4 py-2 bg-sky-300">Messages</a>
+            <a href="" class="rounded-md px-4 py-2 bg-sky-300">Account</a>
+        </div>
+    </header>
+    <span class="text-center bg-yellow-200 rounded-md border-black border-4">possible warning messsage: planned
+        maintainance today at midnight for 10 min</span>
     <main class="flex-1 p-8">
+
         <script>
             // icl this javascript and tab thing was all thanks to gpt
 
@@ -61,9 +71,9 @@
 
             <div id="dashboard" class="tab-content">
                 <h1 class="text-center text-5xl">Near You</h1>
-                <ul>
+                <ul class="*:mt-4">
                     <li>
-                        <p>Events Near You This Week</p>
+                        <p class="text-xl font-semibold">Events Near You This Week</p>
                         <ul
                             class="gap-4 overflow-x-scroll whitespace-nowrap *:inline-block *:w-32 *:h-32 *:bg-gray-500">
                             <a href="./event.html">
@@ -90,7 +100,7 @@
                         </ul>
                     </li>
                     <li>
-                        <p>Events Near You, Later in the Month</p>
+                        <p class="text-xl font-semibold">Events Near You, Later in the Month</p>
                         <ul
                             class="gap-4 overflow-x-scroll whitespace-nowrap *:inline-block *:w-32 *:h-32 *:bg-gray-500">
                             <li>Event 1</li>
@@ -115,7 +125,7 @@
                         </ul>
                     </li>
                     <li>
-                        <p>Events In The United Kingdom</p>
+                        <p class="text-xl font-semibold">Events In The United Kingdom</p>
                         <ul
                             class="gap-4 overflow-x-scroll whitespace-nowrap *:inline-block *:w-32 *:h-32 *:bg-gray-500">
                             <li>Event 1</li>
@@ -155,15 +165,16 @@
                         </li>
                         <li class="border border-gray-300 rounded-lg p-4 bg-white shadow-md">
                             <div class="w-44 md:w-96 h-32 rounded-t-lg bg-gray-500"></div>
-                            <p class="mt-2 text-center text-gray-700">Caption 2</p>
+                            <p class="mt-2 text-center text-gray-700">Met this lovely celeb and got to take a selfie
+                                with her!</p>
                         </li>
                         <li class="border border-gray-300 rounded-lg p-4 bg-white shadow-md">
                             <div class="w-44 md:w-96 h-32 rounded-t-lg bg-gray-500"></div>
-                            <p class="mt-2 text-center text-gray-700">Caption 3</p>
+                            <p class="mt-2 text-center text-gray-700">Selfie #101 - so slay</p>
                         </li>
                         <li class="border border-gray-300 rounded-lg p-4 bg-white shadow-md">
                             <div class="w-44 md:w-96 h-32 rounded-t-lg bg-gray-500"></div>
-                            <p class="mt-2 text-center text-gray-700">Caption 3</p>
+                            <p class="mt-2 text-center text-gray-700">Another caption!</p>
                         </li>
                     </ul>
 
