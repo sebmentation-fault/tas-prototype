@@ -1,0 +1,24 @@
+package layouts
+
+import "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/components/footers"
+
+templ Base(children ...templ.Component) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<title>gohtmx prototype</title>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<script src="/static/js/htmx.min.js"></script>
+			<link rel="stylesheet" href="/static/css/style.css"/>
+		</head>
+		<body class="flex flex-col h-screen justify-between">
+			<main class="flex-1 mx-auto text-center">
+				for _, child := range children {
+					@child
+				}
+			</main>
+			@footers.Footer()
+		</body>
+	</html>
+}
