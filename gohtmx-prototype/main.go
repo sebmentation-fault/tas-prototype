@@ -11,12 +11,20 @@ func main() {
 
 	// Middleware to cache the favicon, speeding up acces to favicon requests
 	app.Use(favicon.New(favicon.Config{
-		File: "./pkg/assets/favicon.ico",
+		File: "./public/favicon.ico",
 		URL:  "/favicon.ico",
 	}))
 
-	// In HTML code, we use '/static' to reach the assets in 'pkg/assets/'
-	app.Static("/static", "./pkg/assets/")
+	// On client-leveL code, we use '/static' to reach the assets in 'public/',
+	// to access CSS, JS, etc.
+	app.Static("/static", "./public/")
+
+	// Handle get requests to '/event'
+	app.Get("/event", handlers.Event)
+	// Handle get requests to '/dashboard'
+	app.Get("/dashboard", handlers.Dashboard)
+	app.Get("/dashboard/events", handlers.Events)
+	app.Get("/dashboard/selfies", handlers.Feed)
 
 	// Handle get requests to '/'
 	app.Get("/", handlers.Index)

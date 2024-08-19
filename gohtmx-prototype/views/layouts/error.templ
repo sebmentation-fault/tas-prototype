@@ -1,0 +1,32 @@
+package layouts
+
+import "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/components/footers"
+
+templ Error(children ...templ.Component) {
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>gohtmx prototype</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script src="/static/js/htmx.min.js"></script>
+	<link rel="stylesheet" href="/static/css/style.css" />
+</head>
+
+<body class="flex flex-col h-screen justify-between">
+	<main class="flex-1 mx-auto text-center text-4xl">
+		for _, child := range children {
+		@child
+		}
+		<p class="text-xl">
+			Error encountered. If this behaviour is unexpected, please <a href=""
+				class="text-blue-500">contact support</a>
+			to notify us.
+		</p>
+	</main>
+	@footers.Footer()
+</body>
+
+</html>
+}

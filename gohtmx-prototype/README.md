@@ -13,3 +13,14 @@
 1. todo: database (supabase)
 1. todo: authentication (supabase)
 1. todo: payment
+
+## directory structure
+
+* main entry point is [main.go](./main.go) (could change to `./cmd/v1/main.go`,
+  `./cmd/v2/main.go` if we have multiple versions, etc)
+* [pkg/](./pkg/) has server-related code, such as [handlers](./pkg/handlers/),
+  and [db](./pkg/handlers/). If we have actual apps in the future, then these
+  handlers should be aware of the client content-type and send JSON instead of
+  HTML, for example
+* publically availiable assets are in [public/](./public/)
+* HTML/view-related code is in [views/](./views/)

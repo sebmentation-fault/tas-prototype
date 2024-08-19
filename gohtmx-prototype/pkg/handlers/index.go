@@ -3,9 +3,9 @@ package handlers
 import (
 	"github.com/a-h/templ"
 	"github.com/gofiber/fiber/v2"
-	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/layouts"
-	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/view"
-	errorhandling "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/view/error-handling"
+	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views"
+	errorhandling "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/error-handling"
+	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/layouts"
 )
 
 // Index handler returns the Index page.

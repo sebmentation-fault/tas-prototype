@@ -1,8 +1,8 @@
 package layouts
 
-import "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/components/footers"
+import "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/components/footers"
 
-templ Error(children ...templ.Component) {
+templ Base(children ...templ.Component) {
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>
@@ -13,14 +13,14 @@ templ Error(children ...templ.Component) {
 			<link rel="stylesheet" href="/static/css/style.css"/>
 		</head>
 		<body class="flex flex-col h-screen justify-between">
-			<main class="flex-1 mx-auto text-center text-4xl">
+			<header class="bg-sky-50 flex-row">
+				<span>Take a Selfie</span>
+				<span>action buttons here</span>
+			</header>
+			<main class="flex-1 text-center">
 				for _, child := range children {
 					@child
 				}
-				<p class="">
-					Error encountered. If this behaviour is unexpected, please <a href="">contact support</a>
-					to notify us.
-				</p>
 			</main>
 			@footers.Footer()
 		</body>
