@@ -32,5 +32,6 @@ func main() {
 	// If no requests succeeds, then show the 404 not found page
 	app.Use(handlers.NotFoundMiddleware)
 
-	app.Listen(":42069")
+	// Start listening
+	app.Listen(":8080")
 }
