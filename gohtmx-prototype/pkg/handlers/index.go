@@ -19,7 +19,7 @@ func Index(c *fiber.Ctx) error {
 // Middleware to show a 404 page-not-found page if the page was not found.
 //
 // From the templ docs.
-func NotFoundMiddleware(c *fiber.Ctx) error {
+func notFoundMiddleware(c *fiber.Ctx) error {
 	// Set the HTTP status code
 	c.Status(fiber.StatusNotFound)
 	return RenderHTML(c, layouts.Error(errorhandling.NotFound()))

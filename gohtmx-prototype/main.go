@@ -19,18 +19,8 @@ func main() {
 	// to access CSS, JS, etc.
 	app.Static("/static", "./public/")
 
-	// Handle get requests to '/event'
-	app.Get("/event", handlers.Event)
-	// Handle get requests to '/dashboard'
-	app.Get("/dashboard", handlers.Dashboard)
-	app.Get("/dashboard/events", handlers.Events)
-	app.Get("/dashboard/selfies", handlers.Feed)
-
-	// Handle get requests to '/'
-	app.Get("/", handlers.Index)
-
-	// If no requests succeeds, then show the 404 not found page
-	app.Use(handlers.NotFoundMiddleware)
+	// Set up the handlers
+	handlers.SetupHandlers(app)
 
 	// Start listening
 	app.Listen(":8080")

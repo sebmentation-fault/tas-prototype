@@ -7,6 +7,6 @@ import (
 )
 
 // Get the Event details page
-func Event(c *fiber.Ctx) error {
+func eventHandler(c *fiber.Ctx) error {
 	return RenderHTML(c, layouts.Base(events.Event()))
 }

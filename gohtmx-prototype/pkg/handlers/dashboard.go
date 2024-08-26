@@ -7,20 +7,20 @@ import (
 )
 
 // Get the Dashboard page
-func Dashboard(c *fiber.Ctx) error {
+func dashboardHandler(c *fiber.Ctx) error {
 	return RenderHTML(c, layouts.Base(events.Tabs(), events.Events()))
 }
 
 // Get the events list
 //
 // Has no layout
-func Events(c *fiber.Ctx) error {
+func eventsHandler(c *fiber.Ctx) error {
 	return RenderHTML(c, events.Events())
 }
 
 // Get the global feed
 //
 // Has no layout
-func Feed(c *fiber.Ctx) error {
+func feedHandler(c *fiber.Ctx) error {
 	return RenderHTML(c, events.Feed())
 }

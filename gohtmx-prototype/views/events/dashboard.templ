@@ -1,7 +1,7 @@
 package events
 
 var (
-	eventsInArea = [...][]string{
+	eventsInArea = [][]string{
 		{"calk in park", "Alice P", "14 sep. 2024"},
 		{"Coffee break", "John Doe", "30 oct. 2024"},
 		{"Event 4", "Celeb 4", "2 dec. 2024"},
@@ -14,6 +14,48 @@ var (
 		{"Event 11", "Celeb 50", "3 dec. 2024"},
 		{"Event 12", "Celeb 60", "4 dec. 2024"},
 		{"Event 13", "Celeb 70", "5 dec. 2024"},
+	}
+
+	eventsFurtherAway = [][]string{
+		{"beer time", "someone popular", "14 sep. 2024"},
+		{"discuss money making", "the ceo", "30 oct. 2024"},
+		{"Event 4", "Celeb 4", "2 dec. 2024"},
+		{"Event 6", "Celeb 5", "3 dec. 2024"},
+		{"Event 8", "Celeb 6", "4 dec. 2024"},
+		{"Event 7", "Celeb 7", "5 dec. 2024"},
+	}
+
+	eventsLater = [][]string{
+		{"book club", "a mum", "14 sep. 2024"},
+		{"makeup tutorial", "makeup celeb", "30 oct. 2024"},
+		{"Event 4", "Celeb 4", "2 dec. 2024"},
+		{"Event 6", "Celeb 5", "3 dec. 2024"},
+		{"Event 8", "Celeb 6", "4 dec. 2024"},
+		{"Event 7", "Celeb 7", "5 dec. 2024"},
+		{"Event 8", "Celeb 8", "6 dec. 2024"},
+		{"Event 9", "Celeb 9", "7 dec. 2024"},
+		{"Event 10", "Celeb 20", "2 dec. 2024"},
+		{"Event 11", "Celeb 50", "3 dec. 2024"},
+		{"Event 12", "Celeb 60", "4 dec. 2024"},
+		{"Event 13", "Celeb 70", "5 dec. 2024"},
+	}
+
+	eventsList = []struct {
+		title  string
+		events [][]string
+	}{
+		{
+			"Near you (soon!)",
+			eventsInArea,
+		},
+		{
+			"Events slightly further away",
+			eventsFurtherAway,
+		},
+		{
+			"Events happening later in your area",
+			eventsLater,
+		},
 	}
 
 	selfiesTaken = [...]string{
@@ -54,40 +96,22 @@ templ Tabs() {
 // The templ showing a list of all the events that are nearby
 templ Events() {
 	<div id="dashboard-content" class="tab-content">
-		<h1 class="text-center text-5xl">Near You</h1>
+		<h1 class="text-center text-5xl">Event Dashboard</h1>
 		<ul class="*:mt-4">
-			<li>
-				<p class="text-xl font-extralight">Events Near You This Week</p>
-				<ul class="gap-4 overflow-x-scroll whitespace-nowrap *:inline-block *:w-32 *:h-32 *:bg-gray-500">
-					for _, event := range eventsInArea {
-						<li>
-							<a>
-								{ event[0] } with { event[1] } on { event[2] }
-							</a>
-						</li>
-					}
-				</ul>
-			</li>
-			<li>
-				<p class="text-xl font-semibold">Events Near You, Later in the Month</p>
-				<ul class="gap-4 overflow-x-scroll whitespace-nowrap *:inline-block *:w-32 *:h-32 *:bg-gray-500">
-					for _, event := range eventsInArea {
-						<li>
-							{ event[0] } with { event[1] } on { event[2] }
-						</li>
-					}
-				</ul>
-			</li>
-			<li>
-				<p class="text-xl font-semibold">Events In The United Kingdom</p>
-				<ul class="gap-4 overflow-x-scroll whitespace-nowrap *:inline-block *:w-32 *:h-32 *:bg-gray-500">
-					for _, event := range eventsInArea {
-						<li>
-							{ event[0] } with { event[1] } on { event[2] }
-						</li>
-					}
-				</ul>
-			</li>
+			for _, eventSection := range eventsList {
+				<li>
+					<p class="text-xl font-semibold">{ eventSection.title }</p>
+					<ul class="gap-x-10 overflow-x-scroll *:inline-block *:w-32 *:h-32 *:bg-gray-500">
+						for _, event := range eventSection.events {
+							<li>
+								<a href="/event">
+									{ event[0] } with { event[1] } on { event[2] }
+								</a>
+							</li>
+						}
+					</ul>
+				</li>
+			}
 		</ul>
 	</div>
 }
