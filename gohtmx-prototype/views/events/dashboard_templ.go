@@ -11,32 +11,35 @@ import "io"
 import "bytes"
 
 var (
+	// title, celeb, date, image url (default if blank)
 	eventsInArea = [][]string{
-		{"walk in park", "Alice P", "14 sep. 2024"},
-		{"Coffee break", "John Doe", "30 oct. 2024"},
-		{"Event 4", "Celeb 4", "2 dec. 2024"},
+		{"walk in park", "Alice P", "14 sep. 2024", "/static/images/ParkBenchForest.jpg"},
+		{"Coffee break", "John Doe", "30 oct. 2024", "/static/images/CoffeeBeansSeed.jpg"},
+		{"Event 4", "Celeb 4", "2 dec. 2024", ""},
 	}
 
+	// title, celeb, date, image url
 	eventsFurtherAway = [][]string{
-		{"beer time", "someone popular", "14 sep. 2024"},
-		{"discuss money making", "the ceo", "30 oct. 2024"},
-		{"Event 4", "Celeb 4", "2 dec. 2024"},
-		{"Event 6", "Celeb 5", "3 dec. 2024"},
+		{"beer time", "someone popular", "14 sep. 2024", "/static/images/IrishPubLocal.jpg"},
+		{"discuss money making", "the ceo", "30 oct. 2024", ""},
+		{"Event 4", "Celeb 4", "2 dec. 2024", ""},
+		{"Event 6", "Celeb 5", "3 dec. 2024", ""},
 	}
 
+	// title, celeb, date, image url
 	eventsLater = [][]string{
-		{"book club", "a mum", "14 sep. 2024"},
-		{"makeup tutorial", "makeup celeb", "30 oct. 2024"},
-		{"Event 4", "Celeb 4", "2 dec. 2024"},
-		{"Event 6", "Celeb 5", "3 dec. 2024"},
-		{"Event 8", "Celeb 6", "4 dec. 2024"},
-		{"Event 7", "Celeb 7", "5 dec. 2024"},
-		{"Event 8", "Celeb 8", "6 dec. 2024"},
-		{"Event 9", "Celeb 9", "7 dec. 2024"},
-		{"Event 10", "Celeb 20", "2 dec. 2024"},
-		{"Event 11", "Celeb 50", "3 dec. 2024"},
-		{"Event 12", "Celeb 60", "4 dec. 2024"},
-		{"Event 13", "Celeb 70", "5 dec. 2024"},
+		{"book club", "a mum", "14 sep. 2024", ""},
+		{"makeup tutorial", "makeup celeb", "30 oct. 2024", ""},
+		{"Event 4", "Celeb 4", "2 dec. 2024", ""},
+		{"Event 6", "Celeb 5", "3 dec. 2024", ""},
+		{"Event 8", "Celeb 6", "4 dec. 2024", ""},
+		{"Event 7", "Celeb 7", "5 dec. 2024", ""},
+		{"Event 8", "Celeb 8", "6 dec. 2024", ""},
+		{"Event 9", "Celeb 9", "7 dec. 2024", ""},
+		{"Event 10", "Celeb 20", "2 dec. 2024", ""},
+		{"Event 11", "Celeb 50", "3 dec. 2024", ""},
+		{"Event 12", "Celeb 60", "4 dec. 2024", ""},
+		{"Event 13", "Celeb 70", "5 dec. 2024", ""},
 	}
 
 	eventsList = []struct {
@@ -57,6 +60,7 @@ var (
 		},
 	}
 
+	// caption, image url
 	selfiesTaken = [...]string{
 		"Got to take a selfie with my favourite celebrity!",
 		"Met this lovely celeb and got to take a selfie with her!",
@@ -105,19 +109,19 @@ func Events() templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"dashboard-content\"><h1 class=\"text-center text-5xl\">Event Dashboard</h1><ul class=\"*:mt-4\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"dashboard-content\"><h1 class=\"text-center font-bold text-5xl\">Event Dashboard</h1><ul class=\"*:mt-4\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		for _, eventSection := range eventsList {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li><h2 class=\"text-3xl font-semibold\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li><h2 class=\"text-3xl font-semibold text-left\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(eventSection.title)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/events/dashboard.templ`, Line: 82, Col: 58}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/events/dashboard.templ`, Line: 96, Col: 70}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -128,16 +132,44 @@ func Events() templ.Component {
 				return templ_7745c5c3_Err
 			}
 			for _, event := range eventSection.events {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li class=\"card image-full w-32 md:w-52 xl:w-96 shadow-xl\"><figure><img src=\"/static/images/MenSilhouettesCamera.jpg\" alt=\"Image for event\"></figure><div class=\"card-body\"><h3 class=\"card-title\">")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li class=\"card image-full w-32 md:w-52 xl:w-96 shadow-xl\"><figure>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var4 string
-				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(event[0])
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/events/dashboard.templ`, Line: 90, Col: 39}
+				if len(event[3]) == 0 {
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img src=\"/static/images/MenSilhouettesCamera.jpg\" alt=\"Image for event\">")
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+				} else {
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img src=\"")
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+					var templ_7745c5c3_Var4 string
+					templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(event[3])
+					if templ_7745c5c3_Err != nil {
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/events/dashboard.templ`, Line: 104, Col: 29}
+					}
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"Image for event\">")
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</figure><div class=\"card-body\"><h3 class=\"card-title\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var5 string
+				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(event[0])
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/events/dashboard.templ`, Line: 108, Col: 42}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -145,12 +177,12 @@ func Events() templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var5 string
-				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(event[1])
+				var templ_7745c5c3_Var6 string
+				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(event[1])
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/events/dashboard.templ`, Line: 91, Col: 35}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/events/dashboard.templ`, Line: 109, Col: 38}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -158,12 +190,12 @@ func Events() templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var6 string
-				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(event[2])
+				var templ_7745c5c3_Var7 string
+				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(event[2])
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/events/dashboard.templ`, Line: 92, Col: 35}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/events/dashboard.templ`, Line: 110, Col: 38}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -197,9 +229,9 @@ func Feed() templ.Component {
 			defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var7 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var7 == nil {
-			templ_7745c5c3_Var7 = templ.NopComponent
+		templ_7745c5c3_Var8 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var8 == nil {
+			templ_7745c5c3_Var8 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"dashboard-content\"><h1 class=\"text-center font-bold text-5xl\">Global Feed</h1><div class=\"flex flex-col justify-center items-center min-h-screen mt-4\"><ul class=\"space-y-4 mb-4\">")
@@ -211,12 +243,12 @@ func Feed() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var8 string
-			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(caption)
+			var templ_7745c5c3_Var9 string
+			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(caption)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/events/dashboard.templ`, Line: 115, Col: 37}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/events/dashboard.templ`, Line: 133, Col: 39}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
