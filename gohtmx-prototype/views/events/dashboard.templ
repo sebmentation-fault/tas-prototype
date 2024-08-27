@@ -1,135 +1,121 @@
 package events
 
 var (
-	eventsInArea = [][]string{
-		{"calk in park", "Alice P", "14 sep. 2024"},
-		{"Coffee break", "John Doe", "30 oct. 2024"},
-		{"Event 4", "Celeb 4", "2 dec. 2024"},
-		{"Event 6", "Celeb 5", "3 dec. 2024"},
-		{"Event 8", "Celeb 6", "4 dec. 2024"},
-		{"Event 7", "Celeb 7", "5 dec. 2024"},
-		{"Event 8", "Celeb 8", "6 dec. 2024"},
-		{"Event 9", "Celeb 9", "7 dec. 2024"},
-		{"Event 10", "Celeb 20", "2 dec. 2024"},
-		{"Event 11", "Celeb 50", "3 dec. 2024"},
-		{"Event 12", "Celeb 60", "4 dec. 2024"},
-		{"Event 13", "Celeb 70", "5 dec. 2024"},
-	}
+eventsInArea = [][]string{
+{"walk in park", "Alice P", "14 sep. 2024"},
+{"Coffee break", "John Doe", "30 oct. 2024"},
+{"Event 4", "Celeb 4", "2 dec. 2024"},
+}
 
-	eventsFurtherAway = [][]string{
-		{"beer time", "someone popular", "14 sep. 2024"},
-		{"discuss money making", "the ceo", "30 oct. 2024"},
-		{"Event 4", "Celeb 4", "2 dec. 2024"},
-		{"Event 6", "Celeb 5", "3 dec. 2024"},
-		{"Event 8", "Celeb 6", "4 dec. 2024"},
-		{"Event 7", "Celeb 7", "5 dec. 2024"},
-	}
+eventsFurtherAway = [][]string{
+{"beer time", "someone popular", "14 sep. 2024"},
+{"discuss money making", "the ceo", "30 oct. 2024"},
+{"Event 4", "Celeb 4", "2 dec. 2024"},
+{"Event 6", "Celeb 5", "3 dec. 2024"},
+}
 
-	eventsLater = [][]string{
-		{"book club", "a mum", "14 sep. 2024"},
-		{"makeup tutorial", "makeup celeb", "30 oct. 2024"},
-		{"Event 4", "Celeb 4", "2 dec. 2024"},
-		{"Event 6", "Celeb 5", "3 dec. 2024"},
-		{"Event 8", "Celeb 6", "4 dec. 2024"},
-		{"Event 7", "Celeb 7", "5 dec. 2024"},
-		{"Event 8", "Celeb 8", "6 dec. 2024"},
-		{"Event 9", "Celeb 9", "7 dec. 2024"},
-		{"Event 10", "Celeb 20", "2 dec. 2024"},
-		{"Event 11", "Celeb 50", "3 dec. 2024"},
-		{"Event 12", "Celeb 60", "4 dec. 2024"},
-		{"Event 13", "Celeb 70", "5 dec. 2024"},
-	}
+eventsLater = [][]string{
+{"book club", "a mum", "14 sep. 2024"},
+{"makeup tutorial", "makeup celeb", "30 oct. 2024"},
+{"Event 4", "Celeb 4", "2 dec. 2024"},
+{"Event 6", "Celeb 5", "3 dec. 2024"},
+{"Event 8", "Celeb 6", "4 dec. 2024"},
+{"Event 7", "Celeb 7", "5 dec. 2024"},
+{"Event 8", "Celeb 8", "6 dec. 2024"},
+{"Event 9", "Celeb 9", "7 dec. 2024"},
+{"Event 10", "Celeb 20", "2 dec. 2024"},
+{"Event 11", "Celeb 50", "3 dec. 2024"},
+{"Event 12", "Celeb 60", "4 dec. 2024"},
+{"Event 13", "Celeb 70", "5 dec. 2024"},
+}
 
-	eventsList = []struct {
-		title  string
-		events [][]string
-	}{
-		{
-			"Near you (soon!)",
-			eventsInArea,
-		},
-		{
-			"Events slightly further away",
-			eventsFurtherAway,
-		},
-		{
-			"Events happening later in your area",
-			eventsLater,
-		},
-	}
+eventsList = []struct {
+title string
+events [][]string
+}{
+{
+"Near you (soon!)",
+eventsInArea,
+},
+{
+"Events slightly further away",
+eventsFurtherAway,
+},
+{
+"Events happening later in your area",
+eventsLater,
+},
+}
 
-	selfiesTaken = [...]string{
-		"Got to take a selfie with my favourite celebrity!",
-		"Met this lovely celeb and got to take a selfie with her!",
-		"Selfie #101 - so slay",
-		"Yet another basic caption - still happy tho :)",
-		"Had a pint with the one and only!",
-	}
+selfiesTaken = [...]string{
+"Got to take a selfie with my favourite celebrity!",
+"Met this lovely celeb and got to take a selfie with her!",
+"Selfie #101 - so slay",
+"Yet another basic caption - still happy tho :)",
+"Had a pint with the one and only!",
+}
 )
 
 // This Tabs toggles either the events list or the global feed
 templ Tabs() {
-	<div class="flex items-center space-x-4 mb-4">
-		<button
-			class="relative py-2 px-4 text-gray-700 focus:outline-none"
-			hx-trigger="click"
-			hx-get="/dashboard/events"
-			hx-swap="innerHTML"
-			hx-target="#dashboard-content"
-		>
-			Dashboard
-			<span class="absolute left-0 right-0 bottom-0 h-1 bg-blue-500 transition-all duration-300"></span>
-		</button>
-		<button
-			class="relative py-2 px-4 text-gray-700 focus:outline-none"
-			hx-trigger="click"
-			hx-get="/dashboard/selfies"
-			hx-swap="innerHTML"
-			hx-target="#dashboard-content"
-		>
-			Global Feed
-			<span class="absolute left-0 right-0 bottom-0 h-1 bg-transparent transition-all duration-300"></span>
-		</button>
-	</div>
+<div class="flex items-center space-x-4 mb-4">
+	<button class="relative py-2 px-4 text-gray-700 focus:outline-none" hx-trigger="click" hx-get="/dashboard/events"
+		hx-swap="innerHTML" hx-target="#dashboard-content">
+		Dashboard
+		<span class="absolute left-0 right-0 bottom-0 h-1 bg-blue-500 transition-all duration-300"></span>
+	</button>
+	<button class="relative py-2 px-4 text-gray-700 focus:outline-none" hx-trigger="click" hx-get="/dashboard/selfies"
+		hx-swap="innerHTML" hx-target="#dashboard-content">
+		Global Feed
+		<span class="absolute left-0 right-0 bottom-0 h-1 bg-transparent transition-all duration-300"></span>
+	</button>
+</div>
 }
 
 // The templ showing a list of all the events that are nearby
 templ Events() {
-	<div id="dashboard-content" class="tab-content">
-		<h1 class="text-center text-5xl">Event Dashboard</h1>
-		<ul class="*:mt-4">
-			for _, eventSection := range eventsList {
-				<li>
-					<p class="text-xl font-semibold">{ eventSection.title }</p>
-					<ul class="gap-x-10 overflow-x-scroll *:inline-block *:w-32 *:h-32 *:bg-gray-500">
-						for _, event := range eventSection.events {
-							<li>
-								<a href="/event">
-									{ event[0] } with { event[1] } on { event[2] }
-								</a>
-							</li>
-						}
-					</ul>
+<div id="dashboard-content">
+	<h1 class="text-center text-5xl">Event Dashboard</h1>
+	<ul class="*:mt-4">
+		for _, eventSection := range eventsList {
+		<li>
+			<h2 class="text-3xl font-semibold">{ eventSection.title }</h2>
+			<ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+				for _, event := range eventSection.events {
+				<li class="card image-full w-96 shadow-xl">
+					<figure>
+						<img src="/static/images/MenSilhouettesCamera.jpg" alt="Image for event" />
+					</figure>
+					<div class="card-body">
+						<h3 class="card-title">{ event[0] }</h3>
+						<p class="text-xl">{ event[1] }</p>
+						<p class="text-xl">{ event[2] }</p>
+					</div>
 				</li>
-			}
-		</ul>
-	</div>
+				}
+			</ul>
+		</li>
+		}
+	</ul>
+</div>
 }
 
 // The templ showing the most recent selfies taken
 templ Feed() {
-	<div id="dashboard-content" class="tab-content">
-		<h1 class="text-center font-bold text-5xl">Global Feed</h1>
-		<div class="flex flex-col justify-center items-center min-h-screen mt-4">
-			<ul class=" space-y-4 mb-4">
-				for _, caption := range selfiesTaken {
-					<li class="border border-gray-300 rounded-lg p-4 bg-white shadow-md">
-						<div class="w-44 md:w-96 h-32 rounded-t-lg bg-gray-500"></div>
-						<p class="mt-2 text-center text-gray-700">{ caption }</p>
-					</li>
-				}
-			</ul>
-			<button class="px-4 py-2 bg-gray-200 rounded-md">Load more</button>
-		</div>
+<div id="dashboard-content">
+	<h1 class="text-center font-bold text-5xl">Global Feed</h1>
+	<div class="flex flex-col justify-center items-center min-h-screen mt-4">
+		<ul class="space-y-4 mb-4">
+			for _, caption := range selfiesTaken {
+			<li class="border border-gray-300 rounded-lg p-4 bg-white shadow-md">
+				<div class="w-44 md:w-96 h-32 rounded-t-lg bg-gray-500"></div>
+				<p class="mt-2 text-center text-gray-700">{ caption }</p>
+			</li>
+			}
+			<!-- testing the skeleton feature here -->
+			<li class="skeleton rounded-lg p-4 w-44 md:w-96 h-32"></li>
+		</ul>
+		<button class="btn btn-primary">Load more</button>
 	</div>
+</div>
 }

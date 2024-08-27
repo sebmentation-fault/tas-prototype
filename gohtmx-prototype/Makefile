@@ -8,7 +8,7 @@ templ:
 	@templ generate
 
 css:
-	tailwindcss -i views/css/tailwind.css -o public/css/style.css --minify
+	npx tailwindcss -i views/css/tailwind.css -o public/css/style.css --minify
 
 docker-build:
 	docker build -t gohtmx:latest .

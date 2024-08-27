@@ -1,28 +1,29 @@
 package layouts
 
 import "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/components/footers"
+import "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/components/headers"
 
 templ Base(children ...templ.Component) {
-	<!DOCTYPE html>
-	<html lang="en">
-		<head>
-			<title>gohtmx prototype</title>
-			<meta charset="UTF-8"/>
-			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-			<script src="/static/js/htmx.min.js"></script>
-			<link rel="stylesheet" href="/static/css/style.css"/>
-		</head>
-		<body class="flex flex-col h-screen justify-between">
-			<header class="bg-sky-50 flex-row">
-				<span>Take a Selfie</span>
-				<span>action buttons here</span>
-			</header>
-			<main class="flex-1 text-center">
-				for _, child := range children {
-					@child
-				}
-			</main>
-			@footers.Footer()
-		</body>
-	</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>gohtmx prototype</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script src="/static/js/htmx.min.js"></script>
+	<link rel="stylesheet" href="/static/css/style.css" />
+</head>
+
+<body class="flex flex-col h-screen justify-between">
+	@headers.Header()
+	<main class="flex-1 text-center">
+		for _, child := range children {
+		@child
+		}
+	</main>
+	@footers.Footer()
+</body>
+
+</html>
 }
