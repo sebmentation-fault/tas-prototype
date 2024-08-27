@@ -128,7 +128,7 @@ func Events() templ.Component {
 				return templ_7745c5c3_Err
 			}
 			for _, event := range eventSection.events {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li class=\"card image-full w-96 shadow-xl\"><figure><img src=\"/static/images/MenSilhouettesCamera.jpg\" alt=\"Image for event\"></figure><div class=\"card-body\"><h3 class=\"card-title\">")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li class=\"card image-full w-32 md:w-52 xl:w-96 shadow-xl\"><figure><img src=\"/static/images/MenSilhouettesCamera.jpg\" alt=\"Image for event\"></figure><div class=\"card-body\"><h3 class=\"card-title\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -207,25 +207,25 @@ func Feed() templ.Component {
 			return templ_7745c5c3_Err
 		}
 		for _, caption := range selfiesTaken {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li class=\"border border-gray-300 rounded-lg p-4 bg-white shadow-md\"><div class=\"w-44 md:w-96 h-32 rounded-t-lg bg-gray-500\"></div><p class=\"mt-2 text-center text-gray-700\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li class=\"card bg-base-100 w-32 md:w-52 xl:w-96 shadow-xl\"><figure><img src=\"/static/images/MenSilhouettesCamera.jpg\" alt=\"Image of selfie\"></figure><div class=\"card-body\"><h2 class=\"card-title\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var8 string
 			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(caption)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/events/dashboard.templ`, Line: 112, Col: 55}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/events/dashboard.templ`, Line: 115, Col: 37}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></li>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h2></div></li>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!-- testing the skeleton feature here --><li class=\"skeleton rounded-lg p-4 w-44 md:w-96 h-32\"></li></ul><button class=\"btn btn-primary\">Load more</button></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!-- testing the skeleton feature here --><li class=\"skeleton w-32 md:w-52 xl:w-96 h-24 md:h-32\"></li><li class=\"skeleton w-32 md:w-52 xl:w-96 h-24 md:h-32\"></li></ul><button class=\"btn btn-primary\">Load more</button></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
