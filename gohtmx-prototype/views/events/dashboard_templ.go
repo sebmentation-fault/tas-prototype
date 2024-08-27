@@ -61,12 +61,12 @@ var (
 	}
 
 	// caption, image url
-	selfiesTaken = [...]string{
-		"Got to take a selfie with my favourite celebrity!",
-		"Met this lovely celeb and got to take a selfie with her!",
-		"Selfie #101 - so slay",
-		"Yet another basic caption - still happy tho :)",
-		"Had a pint with the one and only!",
+	selfiesTaken = [...][]string{
+		{"Got to take a selfie with my favourite celebrity!", ""},
+		{"Met this lovely celeb and got to take a selfie with her!", "/static/images/ParkBenchForest.jpg"},
+		{"Selfie #101 - so slay", ""},
+		{"Yet another basic caption - still happy tho :)", ""},
+		{"Had a pint with the one and only!", "/static/images/IrishPubLocal.jpg"},
 	}
 )
 
@@ -238,17 +238,45 @@ func Feed() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		for _, caption := range selfiesTaken {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li class=\"card bg-base-100 w-32 md:w-52 xl:w-96 shadow-xl\"><figure><img src=\"/static/images/MenSilhouettesCamera.jpg\" alt=\"Image of selfie\"></figure><div class=\"card-body\"><h2 class=\"card-title\">")
+		for _, selfie := range selfiesTaken {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li class=\"card bg-base-100 w-32 md:w-52 xl:w-96 shadow-xl\"><figure>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var9 string
-			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(caption)
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/events/dashboard.templ`, Line: 133, Col: 39}
+			if len(selfie[1]) == 0 {
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img src=\"/static/images/MenSilhouettesCamera.jpg\" alt=\"Image of selfie\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			} else {
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img src=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var9 string
+				templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(selfie[1])
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/events/dashboard.templ`, Line: 133, Col: 28}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"Image of selfie\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</figure><div class=\"card-body\"><h2 class=\"card-title\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var10 string
+			templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(selfie[0])
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/events/dashboard.templ`, Line: 137, Col: 41}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

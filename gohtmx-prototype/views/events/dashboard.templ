@@ -51,12 +51,12 @@ var (
 	}
 
 	// caption, image url
-	selfiesTaken = [...]string{
-		"Got to take a selfie with my favourite celebrity!",
-		"Met this lovely celeb and got to take a selfie with her!",
-		"Selfie #101 - so slay",
-		"Yet another basic caption - still happy tho :)",
-		"Had a pint with the one and only!",
+	selfiesTaken = [...][]string{
+		{"Got to take a selfie with my favourite celebrity!", ""},
+		{"Met this lovely celeb and got to take a selfie with her!", "/static/images/ParkBenchForest.jpg"},
+		{"Selfie #101 - so slay", ""},
+		{"Yet another basic caption - still happy tho :)", ""},
+		{"Had a pint with the one and only!", "/static/images/IrishPubLocal.jpg"},
 	}
 )
 
@@ -124,13 +124,17 @@ templ Feed() {
 		<h1 class="text-center font-bold text-5xl">Global Feed</h1>
 		<div class="flex flex-col justify-center items-center min-h-screen mt-4">
 			<ul class="space-y-4 mb-4">
-				for _, caption := range selfiesTaken {
+				for _, selfie := range selfiesTaken {
 					<li class="card bg-base-100 w-32 md:w-52 xl:w-96 shadow-xl">
 						<figure>
-							<img src="/static/images/MenSilhouettesCamera.jpg" alt="Image of selfie"/>
+							if len(selfie[1]) == 0 {
+								<img src="/static/images/MenSilhouettesCamera.jpg" alt="Image of selfie"/>
+							} else {
+								<img src={ selfie[1] } alt="Image of selfie"/>
+							}
 						</figure>
 						<div class="card-body">
-							<h2 class="card-title">{ caption }</h2>
+							<h2 class="card-title">{ selfie[0] }</h2>
 						</div>
 					</li>
 				}
