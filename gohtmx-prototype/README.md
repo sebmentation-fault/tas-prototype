@@ -21,9 +21,7 @@
 1. [go](https://go.dev/doc/install) (to install templ below)
 1. [templ](https://templ.guide/quick-start/installation) (to compile templ into
    go)
-1. [tailwindcss (standalone)](https://tailwindcss.com/blog/standalone-cli) or
-   [tailwindcss (npm)](https://tailwindcss.com/docs/installation)
-   (to compile the css)
+1. npm to install tailwindcss and daisyui
 
 ## directory structure
 
@@ -35,6 +33,14 @@
   HTML, for example
 * publically availiable assets are in [public/](./public/)
 * HTML/view-related code is in [views/](./views/)
+
+## run the server with live-reload
+
+```sh
+make live
+```
+
+Then access the server at `http://localhost:7331`.
 
 ## build/run the server (in docker)
 

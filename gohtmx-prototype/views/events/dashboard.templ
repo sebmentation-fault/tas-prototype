@@ -1,150 +1,141 @@
 package events
 
 var (
-	// title, celeb, date, image url (default if blank)
-	eventsInArea = [][]string{
-		{"walk in park", "Alice P", "14 sep. 2024", "/static/images/ParkBenchForest.jpg"},
-		{"Coffee break", "John Doe", "30 oct. 2024", "/static/images/CoffeeBeansSeed.jpg"},
-		{"Event 4", "Celeb 4", "2 dec. 2024", ""},
-	}
+// title, celeb, date, image url (default if blank)
+eventsInArea = [][]string{
+{"walk in park", "Alice P", "14 sep. 2024", "/static/images/ParkBenchForest.jpg"},
+{"Coffee break", "John Doe", "30 oct. 2024", "/static/images/CoffeeBeansSeed.jpg"},
+{"Event 4", "Celeb 4", "2 dec. 2024", ""},
+}
 
-	// title, celeb, date, image url
-	eventsFurtherAway = [][]string{
-		{"beer time", "someone popular", "14 sep. 2024", "/static/images/IrishPubLocal.jpg"},
-		{"discuss money making", "the ceo", "30 oct. 2024", ""},
-		{"Event 4", "Celeb 4", "2 dec. 2024", ""},
-		{"Event 6", "Celeb 5", "3 dec. 2024", ""},
-	}
+// title, celeb, date, image url
+eventsFurtherAway = [][]string{
+{"beer time", "someone popular", "14 sep. 2024", "/static/images/IrishPubLocal.jpg"},
+{"discuss money making", "the ceo", "30 oct. 2024", ""},
+{"Event 4", "Celeb 4", "2 dec. 2024", ""},
+{"Event 6", "Celeb 5", "3 dec. 2024", ""},
+}
 
-	// title, celeb, date, image url
-	eventsLater = [][]string{
-		{"book club", "a mum", "14 sep. 2024", ""},
-		{"makeup tutorial", "makeup celeb", "30 oct. 2024", ""},
-		{"Event 4", "Celeb 4", "2 dec. 2024", ""},
-		{"Event 6", "Celeb 5", "3 dec. 2024", ""},
-		{"Event 8", "Celeb 6", "4 dec. 2024", ""},
-		{"Event 7", "Celeb 7", "5 dec. 2024", ""},
-		{"Event 8", "Celeb 8", "6 dec. 2024", ""},
-		{"Event 9", "Celeb 9", "7 dec. 2024", ""},
-		{"Event 10", "Celeb 20", "2 dec. 2024", ""},
-		{"Event 11", "Celeb 50", "3 dec. 2024", ""},
-		{"Event 12", "Celeb 60", "4 dec. 2024", ""},
-		{"Event 13", "Celeb 70", "5 dec. 2024", ""},
-	}
+// title, celeb, date, image url
+eventsLater = [][]string{
+{"book club", "a mum", "14 sep. 2024", ""},
+{"makeup tutorial", "makeup celeb", "30 oct. 2024", ""},
+{"Event 4", "Celeb 4", "2 dec. 2024", ""},
+{"Event 6", "Celeb 5", "3 dec. 2024", ""},
+{"Event 8", "Celeb 6", "4 dec. 2024", ""},
+{"Event 7", "Celeb 7", "5 dec. 2024", ""},
+{"Event 8", "Celeb 8", "6 dec. 2024", ""},
+{"Event 9", "Celeb 9", "7 dec. 2024", ""},
+{"Event 10", "Celeb 20", "2 dec. 2024", ""},
+{"Event 11", "Celeb 50", "3 dec. 2024", ""},
+{"Event 12", "Celeb 60", "4 dec. 2024", ""},
+{"Event 13", "Celeb 70", "5 dec. 2024", ""},
+}
 
-	eventsList = []struct {
-		title  string
-		events [][]string
-	}{
-		{
-			"Near you (soon!)",
-			eventsInArea,
-		},
-		{
-			"Events slightly further away",
-			eventsFurtherAway,
-		},
-		{
-			"Events happening later in your area",
-			eventsLater,
-		},
-	}
+eventsList = []struct {
+title string
+events [][]string
+}{
+{
+"Near you (soon!)",
+eventsInArea,
+},
+{
+"Events slightly further away",
+eventsFurtherAway,
+},
+{
+"Events happening later in your area",
+eventsLater,
+},
+}
 
-	// caption, image url
-	selfiesTaken = [...][]string{
-		{"Got to take a selfie with my favourite celebrity!", ""},
-		{"Met this lovely celeb and got to take a selfie with her!", "/static/images/ParkBenchForest.jpg"},
-		{"Selfie #101 - so slay", ""},
-		{"Yet another basic caption - still happy tho :)", ""},
-		{"Had a pint with the one and only!", "/static/images/IrishPubLocal.jpg"},
-	}
+// caption, image url
+selfiesTaken = [...][]string{
+{"Got to take a selfie with my favourite celebrity!", ""},
+{"Met this lovely celeb and got to take a selfie with her!", "/static/images/ParkBenchForest.jpg"},
+{"Selfie #101 - so slay", ""},
+{"Yet another basic caption - still happy tho :)", ""},
+{"Had a pint with the one and only!", "/static/images/IrishPubLocal.jpg"},
+}
 )
 
 // This Tabs toggles either the events list or the global feed
 templ Tabs() {
-	<div class="flex items-center space-x-4 mb-4">
-		<button
-			class="relative py-2 px-4 text-gray-700 focus:outline-none"
-			hx-trigger="click"
-			hx-get="/dashboard/events"
-			hx-swap="innerHTML"
-			hx-target="#dashboard-content"
-		>
-			Dashboard
-			<span class="absolute left-0 right-0 bottom-0 h-1 bg-blue-500 transition-all duration-300"></span>
-		</button>
-		<button
-			class="relative py-2 px-4 text-gray-700 focus:outline-none"
-			hx-trigger="click"
-			hx-get="/dashboard/selfies"
-			hx-swap="innerHTML"
-			hx-target="#dashboard-content"
-		>
-			Global Feed
-			<span class="absolute left-0 right-0 bottom-0 h-1 bg-transparent transition-all duration-300"></span>
-		</button>
-	</div>
+<div class="flex items-center space-x-4 mb-4">
+	<button class="relative py-2 px-4 text-gray-700 focus:outline-none" hx-trigger="click" hx-get="/dashboard/events"
+		hx-swap="innerHTML" hx-target="#dashboard-content">
+		Dashboard
+		<span class="absolute left-0 right-0 bottom-0 h-1 bg-blue-500 transition-all duration-300"></span>
+	</button>
+	<button class="relative py-2 px-4 text-gray-700 focus:outline-none" hx-trigger="click" hx-get="/dashboard/selfies"
+		hx-swap="innerHTML" hx-target="#dashboard-content">
+		Global Feed
+		<span class="absolute left-0 right-0 bottom-0 h-1 bg-transparent transition-all duration-300"></span>
+	</button>
+</div>
 }
 
 // The templ showing a list of all the events that are nearby
 templ Events() {
-	<div id="dashboard-content">
-		<h1 class="text-center font-bold text-5xl">Event Dashboard</h1>
-		<ul class="*:mt-4">
-			for _, eventSection := range eventsList {
-				<li>
-					<h2 class="text-3xl font-semibold text-left">{ eventSection.title }</h2>
-					<ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-						for _, event := range eventSection.events {
-							<a href="/event">
-								<li class="card image-full w-32 md:w-52 xl:w-96 shadow-xl">
-									<figure>
-										if len(event[3]) == 0 {
-											<img src="/static/images/MenSilhouettesCamera.jpg" alt="Image for event"/>
-										} else {
-											<img src={ event[3] } alt="Image for event"/>
-										}
-									</figure>
-									<div class="card-body">
-										<h3 class="card-title">{ event[0] }</h3>
-										<p class="text-xl">{ event[1] }</p>
-										<p class="text-xl">{ event[2] }</p>
-									</div>
-								</li>
-							</a>
-						}
-					</ul>
-				</li>
-			}
-		</ul>
-	</div>
+<div id="dashboard-content">
+	<h1 class="text-center font-bold text-5xl">Event Dashboard</h1>
+	<ul class="*:mt-4">
+		for _, eventSection := range eventsList {
+		<li>
+			<h2 class="text-3xl font-semibold text-left">{ eventSection.title }</h2>
+			<ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+				for _, event := range eventSection.events {
+				<a href="/event">
+					<li class="card image-full w-32 md:w-52 xl:w-96 shadow-xl">
+						<figure>
+							if len(event[3]) == 0 {
+							<img src="/static/images/MenSilhouettesCamera.jpg" alt="Image for event" />
+							} else {
+							<img src={ event[3] } alt="Image for event" />
+							}
+						</figure>
+						<div class="card-body">
+							<h3 class="card-title">{ event[0] }</h3>
+							<p class="text-xl">{ event[1] }</p>
+							<p class="text-xl">{ event[2] }</p>
+						</div>
+					</li>
+				</a>
+				}
+			</ul>
+		</li>
+		}
+	</ul>
+</div>
 }
 
 // The templ showing the most recent selfies taken
 templ Feed() {
-	<div id="dashboard-content">
-		<h1 class="text-center font-bold text-5xl">Global Feed</h1>
-		<div class="flex flex-col justify-center items-center min-h-screen mt-4">
-			<ul class="space-y-4 mb-4">
-				for _, selfie := range selfiesTaken {
-					<li class="card bg-base-100 w-32 md:w-52 xl:w-96 shadow-xl">
-						<figure>
-							if len(selfie[1]) == 0 {
-								<img src="/static/images/MenSilhouettesCamera.jpg" alt="Image of selfie"/>
-							} else {
-								<img src={ selfie[1] } alt="Image of selfie"/>
-							}
-						</figure>
-						<div class="card-body">
-							<h2 class="card-title">{ selfie[0] }</h2>
-						</div>
-					</li>
-				}
-				<!-- testing the skeleton feature here -->
-				<li class="skeleton w-32 md:w-52 xl:w-96 h-24 md:h-32"></li>
-				<li class="skeleton w-32 md:w-52 xl:w-96 h-24 md:h-32"></li>
-			</ul>
-			<button class="btn btn-primary">Load more</button>
-		</div>
+<div id="dashboard-content">
+	<h1 class="text-center font-bold text-5xl">Global Feed</h1>
+	<div class="flex flex-col justify-center items-center min-h-screen mt-4">
+		<ul class="space-y-4 mb-4">
+			for _, selfie := range selfiesTaken {
+			<li class="card bg-base-100 w-32 md:w-52 xl:w-96 shadow-xl">
+				<figure>
+					if len(selfie[1]) == 0 {
+					<img src="/static/images/MenSilhouettesCamera.jpg" alt="Image of selfie" />
+					} else {
+					<img src={ selfie[1] } alt="Image of selfie" />
+					}
+				</figure>
+				<div class="card-body">
+					<h2 class="card-title">{ selfie[0] }</h2>
+				</div>
+			</li>
+			}
+			<!-- testing the skeleton feature here -->
+			<li class="skeleton w-32 md:w-52 xl:w-96 h-24 md:h-32"></li>
+			<li class="skeleton w-32 md:w-52 xl:w-96 h-24 md:h-32"></li>
+			<li class="skeleton w-32 md:w-52 xl:w-96 h-24 md:h-32"></li>
+		</ul>
+		<button class="btn btn-primary">Load more</button>
 	</div>
+</div>
 }
