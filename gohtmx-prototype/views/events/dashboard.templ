@@ -96,20 +96,22 @@ templ Events() {
 					<h2 class="text-3xl font-semibold text-left">{ eventSection.title }</h2>
 					<ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 						for _, event := range eventSection.events {
-							<li class="card image-full w-32 md:w-52 xl:w-96 shadow-xl">
-								<figure>
-									if len(event[3]) == 0 {
-										<img src="/static/images/MenSilhouettesCamera.jpg" alt="Image for event"/>
-									} else {
-										<img src={ event[3] } alt="Image for event"/>
-									}
-								</figure>
-								<div class="card-body">
-									<h3 class="card-title">{ event[0] }</h3>
-									<p class="text-xl">{ event[1] }</p>
-									<p class="text-xl">{ event[2] }</p>
-								</div>
-							</li>
+							<a href="/event">
+								<li class="card image-full w-32 md:w-52 xl:w-96 shadow-xl">
+									<figure>
+										if len(event[3]) == 0 {
+											<img src="/static/images/MenSilhouettesCamera.jpg" alt="Image for event"/>
+										} else {
+											<img src={ event[3] } alt="Image for event"/>
+										}
+									</figure>
+									<div class="card-body">
+										<h3 class="card-title">{ event[0] }</h3>
+										<p class="text-xl">{ event[1] }</p>
+										<p class="text-xl">{ event[2] }</p>
+									</div>
+								</li>
+							</a>
 						}
 					</ul>
 				</li>
