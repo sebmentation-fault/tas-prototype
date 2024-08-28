@@ -5,7 +5,7 @@
 1. frontend
     1. htmx - interactivity
     1. tailwindcss - styling
-    1. todo: daisyui - styling
+    1. daisyui - styling
 1. backend
     1. golang - language
     1. go fiber web framework - client-server stuff
@@ -21,7 +21,10 @@
 1. [go](https://go.dev/doc/install) (to install templ below)
 1. [templ](https://templ.guide/quick-start/installation) (to compile templ into
    go)
-1. npm to install tailwindcss and daisyui
+1. [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) to
+   install tailwindcss and daisyui, and also execute them
+1. [supabase](https://supabase.com/docs/guides/cli/getting-started?queryGroups=platform&platform=macos)
+   to start/stop the supabase services
 
 ## directory structure
 
@@ -36,11 +39,31 @@
 
 ## run the server with live-reload
 
+### go server
+
+In this dir:
+
 ```sh
 make live
 ```
 
 Then access the server at `http://localhost:7331`.
+
+### database
+
+In the `supabase/` dir:
+
+```sh
+supabase start
+```
+
+Then access the supabase interface at `http://localhost:54323`.
+
+Stop it with:
+
+```sh
+supabase stop
+```
 
 ## build/run the server (in docker)
 

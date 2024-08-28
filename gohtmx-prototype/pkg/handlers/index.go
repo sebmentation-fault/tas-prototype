@@ -4,7 +4,6 @@ import (
 	"github.com/a-h/templ"
 	"github.com/gofiber/fiber/v2"
 	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views"
-	errorhandling "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/error-handling"
 	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/layouts"
 )
 
@@ -22,7 +21,13 @@ func Index(c *fiber.Ctx) error {
 func notFoundMiddleware(c *fiber.Ctx) error {
 	// Set the HTTP status code
 	c.Status(fiber.StatusNotFound)
-	return RenderHTML(c, layouts.Error(errorhandling.NotFound()))
+	// Render the error
+	e := layouts.ErrorStruct{
+		Code:    fiber.StatusNotFound,
+		Title:   "Not Found",
+		Message: "The server could not find the requested resource.",
+	}
+	return RenderHTML(c, layouts.ErrorTempl(&e))
 }
 
 // A Render function that renders templ-HTML with a given Fiber context.

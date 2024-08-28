@@ -79,31 +79,29 @@ templ Tabs() {
 // The templ showing a list of all the events that are nearby
 templ Events() {
 <div id="dashboard-content">
-	<h1 class="text-center font-bold text-5xl">Event Dashboard</h1>
-	<ul class="*:mt-4">
+	<h1 class="text-center font-bold text-5xl mb-10">Event Dashboard</h1>
+	<ul>
 		for _, eventSection := range eventsList {
-		<li>
-			<h2 class="text-3xl font-semibold text-left">{ eventSection.title }</h2>
-			<ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+		<li class="mb-8">
+			<h2 class="text-3xl font-semibold text-left mb-4">{ eventSection.title }</h2>
+			<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 				for _, event := range eventSection.events {
-				<a href="/event">
-					<li class="card image-full w-32 md:w-52 xl:w-96 shadow-xl">
-						<figure>
-							if len(event[3]) == 0 {
-							<img src="/static/images/MenSilhouettesCamera.jpg" alt="Image for event" />
-							} else {
-							<img src={ event[3] } alt="Image for event" />
-							}
-						</figure>
-						<div class="card-body">
-							<h3 class="card-title">{ event[0] }</h3>
-							<p class="text-xl">{ event[1] }</p>
-							<p class="text-xl">{ event[2] }</p>
-						</div>
-					</li>
+				<a class="card image-full w-32 md:w-52 xl:w-96 shadow-xl" href="/event">
+					<figure>
+						if len(event[3]) == 0 {
+						<img src="/static/images/MenSilhouettesCamera.jpg" alt="Image for event" />
+						} else {
+						<img src={ event[3] } alt="Image for event" />
+						}
+					</figure>
+					<div class="card-body">
+						<h3 class="card-title">{ event[0] }</h3>
+						<p class="text-xl">{ event[1] }</p>
+						<p class="text-xl">{ event[2] }</p>
+					</div>
 				</a>
 				}
-			</ul>
+			</div>
 		</li>
 		}
 	</ul>

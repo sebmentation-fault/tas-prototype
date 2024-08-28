@@ -1,24 +1,43 @@
 package events
 
+type EventStruct struct {
+	Celeb       string
+	Location    string
+	Time        string
+	Price       string
+	Description string
+	ImageURL    string
+}
+
+var (
+	event = EventStruct{
+		"John Doe",
+		"Cafe in London",
+		"13:00",
+		"£100",
+		`A celeb-provided description from the celebrity about what to expect from this event.
+
+e.g. Meet me and expect to find us having a coffee at one of my favourite cafes.`,
+		"/static/images/CoffeeBeansSeed.jpg",
+	}
+)
+
 templ Event() {
-<h1 class="text-5xl font-bold text-center">Event 1</h1>
-<br />
-<div class="card bg-base-300 rounded-box grid h-20 place-items-center mx-4">
-	Meet John Doe at Cafe in London Tomorrow at 13:00?
-	<br />
-	(picture of generic cafe?)
-</div>
-<br />
-<div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
-	<div class="flex flex-col items-center order-2 md:order-1">
-		<p>You will need to pay £100</p>
-		<a href="/todo-payment-link" class="btn btn-primary">Reserve and Pay</a>
+	<h1 class="text-5xl font-bold text-center mb-10">Take a selfie with { event.Celeb }</h1>
+	<div class="card md:card-side mx-4 md:mx-10 lg:mx-28 bg-base-100 shadow-xl mb-10">
+		<figure>
+			if len(event.ImageURL) == 0 {
+				<img src="/static/images/MenSilhouettesCamera.jpg" alt="Image for event"/>
+			} else {
+				<img src={ event.ImageURL } alt="Image for event"/>
+			}
+		</figure>
+		<div class="card-body">
+			<h2 class="card-title">{ event.Celeb } | { event.Location } | { event.Time }</h2>
+			<p>{ event.Description }</p>
+			<div class="card-actions justify-end">
+				<a class="btn btn-primary" href="/todo-waiting-room-thing">Reserve and Pay { event.Price }</a>
+			</div>
+		</div>
 	</div>
-	<div class="px-4 py-2 order-1 md:order-2">
-		A celeb-provided description from the celebrity about what to expect from this event.
-		<br />
-		e.g. meet me and you will expect to join me for a lovely coffee break at one of my favourite coffee
-		spots in London.
-	</div>
-</div>
 }

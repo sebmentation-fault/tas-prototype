@@ -1,8 +1,18 @@
 package layouts
 
-import "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/components/footers"
+import "strconv"
 
-templ Error(children ...templ.Component) {
+import "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/components/footers"
+import "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/components/headers"
+
+type ErrorStruct struct {
+Code int
+Title string
+Message string
+}
+
+// The error template, takes in the error title (e.g. '404 - Not Found') and a short description about the error
+templ ErrorTempl(e *ErrorStruct) {
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,16 +23,18 @@ templ Error(children ...templ.Component) {
 	<script src="/static/js/htmx.min.js"></script>
 	<link rel="stylesheet" href="/static/css/style.css" />
 </head>
+@headers.Header()
 
 <body class="flex flex-col h-screen justify-between">
-	<main class="flex-1 mx-auto text-center text-4xl">
-		for _, child := range children {
-		@child
-		}
+	<main class="flex-1 mx-auto text-center">
+		<h1 class="text-4xl">{ strconv.Itoa(e.Code) } - { e.Title }</h1>
+		<h2 class="text-xl">{ e.Message }</h2>
 		<p class="text-xl">
-			Error encountered. If this behaviour is unexpected, please <a href=""
-				class="text-blue-500">contact support</a>
-			to notify us.
+			If this behaviour is unexpected, please
+			<a href="mailto:support@ouremail.com" class="text-blue-500">
+				contact
+				support
+			</a> to notify us.
 		</p>
 	</main>
 	@footers.Footer()
