@@ -77,10 +77,10 @@ make docker-run
 All the following images are royalty free. License states as long as we do not
 sell the content as ours then is ok to be used on the platform.
 
-| image                                                      | source                                                                             |
-| ---------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| [default/selfie](./public/images/MenSilhouettesCamera.jpg) | [Pixabay](https://pixabay.com/photos/men-silhouettes-camera-photographer-1777352/) |
-| [cafe](./public/images/CoffeeBeansSeed.jpg)                | [Pixabay](https://pixabay.com/photos/coffee-beans-seed-powder-wooden-2560260/)     |
-| [pub](./public/images/IrishPubLocal.jpg)                   | [Pixabay](https://pixabay.com/photos/bar-local-ireland-irish-pub-pub-209148/)      |
-| [park](./public/images/ParkBenchForest.jpg)                | [Pixabay](https://pixabay.com/photos/park-bench-park-forest-meadow-6607626/)       |
-| [hike](./public/images/MountainHikeFall.jpg)               | [Pixabay](https://pixabay.com/photos/mountains-hike-fall-rosswald-8411954/)        |
+| image | source |
+| ----- | ------ |
+| ![default/selfie](./public/images/MenSilhouettesCamera.jpg) | [Pixabay](https://pixabay.com/photos/men-silhouettes-camera-photographer-1777352/) |
+| ![cafe](./public/images/CoffeeBeansSeed.jpg)                | [Pixabay](https://pixabay.com/photos/coffee-beans-seed-powder-wooden-2560260/)     |
+| ![pub](./public/images/IrishPubLocal.jpg)                   | [Pixabay](https://pixabay.com/photos/bar-local-ireland-irish-pub-pub-209148/)      |
+| ![park](./public/images/ParkBenchForest.jpg)                | [Pixabay](https://pixabay.com/photos/park-bench-park-forest-meadow-6607626/)       |
+| ![hike](./public/images/MountainHikeFall.jpg)               | [Pixabay](https://pixabay.com/photos/mountains-hike-fall-rosswald-8411954/)        |
