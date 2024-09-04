@@ -15,6 +15,7 @@ func SetupHandlers(app *fiber.App, client *supabase.Client) {
 	app.Get("/dashboard/selfies", feedHandler)
 
 	// Handle get requests to '/auth'
+	app.Get("/auth", authHandler)
 	app.Get("/auth/signup", signUpHandler)
 	app.Get("/auth/login", logInHandler)
 
