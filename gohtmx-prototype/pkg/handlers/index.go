@@ -12,7 +12,7 @@ import (
 // If the user is authenticated, then the Index page is the user's dashboard.
 // Otherwise, shows the TakeASelfie home page.
 func Index(c *fiber.Ctx) error {
-	return RenderHTML(c, layouts.Base(view.Index()))
+	return RenderHTML(c, layouts.Base("Get Started", view.Index()))
 }
 
 // Middleware to show a 404 page-not-found page if the page was not found.

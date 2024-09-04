@@ -3,27 +3,42 @@ package layouts
 import "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/components/footers"
 import "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/components/headers"
 
-templ Base(children ...templ.Component) {
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-	<title>gohtmx prototype</title>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<script src="/static/js/htmx.min.js"></script>
-	<link rel="stylesheet" href="/static/css/style.css" />
-</head>
-
-<body class="flex flex-col h-screen justify-between">
-	@headers.Header()
-	<main class="flex-1 text-center">
-		for _, child := range children {
-		@child
-		}
-	</main>
-	@footers.Footer()
-</body>
-
-</html>
+// The base templ with authorisation
+//
+// includes the scripts necessary for authorisation with supabase
+templ Base(title string, children ...templ.Component) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<title>gohtmx prototype</title>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<meta name="description" content="authorisation page"/>
+			<script type="importmap">
+			{
+				"imports": {
+					"@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm",
+					"@supabase/auth-helpers-shared": "https://unpkg.com/@supabase/auth-helpers-shared@0.4.1/dist/index.mjs",
+					"jose": "https://unpkg.com/jose/dist/browser/index.js"
+				}
+			}
+			</script>
+			<script src="/static/js/htmx.min.js"></script>
+			<link rel="stylesheet" href="/static/css/style.css"/>
+		</head>
+		<body class="flex flex-col h-screen justify-between">
+			@headers.Header()
+			<main
+				class="flex-1 px-2 sm:px-4 md:px-8 lg:px-16 xl:px-32"
+				hx-trigger="supabase-auth-change from:document"
+				hx-post="/todo-authentication-has-changed"
+				hx-swap="innerHTML"
+			>
+				for _, child := range children {
+					@child
+				}
+			</main>
+			@footers.Footer()
+		</body>
+	</html>
 }

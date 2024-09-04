@@ -8,7 +8,7 @@ import (
 
 // Get the Dashboard page
 func dashboardHandler(c *fiber.Ctx) error {
-	return RenderHTML(c, layouts.Base(events.Tabs(), events.Events()))
+	return RenderHTML(c, layouts.Base("Dashboard", events.Tabs(), events.Events()))
 }
 
 // Get the events list

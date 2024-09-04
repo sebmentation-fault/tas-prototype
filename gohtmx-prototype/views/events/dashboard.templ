@@ -62,16 +62,22 @@ selfiesTaken = [...][]string{
 
 // This Tabs toggles either the events list or the global feed
 templ Tabs() {
-<div class="flex items-center space-x-4 mb-4">
-	<button class="relative py-2 px-4 text-gray-700 focus:outline-none" hx-trigger="click" hx-get="/dashboard/events"
-		hx-swap="innerHTML" hx-target="#dashboard-content">
+<div role="tablist" class="tabs tabs-boxed *:w-fit justify-start bg-transparent">
+	<script>
+		// 1. remove tab-active from prev one
+		// 2. add tab-active to clicked one
+		function changeActiveTab(clickedTab) {
+			document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('tab-active'));
+			clickedTab.classList.add('tab-active');
+		}
+	</script>
+	<button role="tab" class="tab tab-active" onclick="changeActiveTab(this)" hx-trigger="click"
+		hx-get="/dashboard/events" hx-swap="innerHTML" hx-target="#dashboard-content">
 		Dashboard
-		<span class="absolute left-0 right-0 bottom-0 h-1 bg-blue-500 transition-all duration-300"></span>
 	</button>
-	<button class="relative py-2 px-4 text-gray-700 focus:outline-none" hx-trigger="click" hx-get="/dashboard/selfies"
+	<button role="tab" class="tab" onclick="changeActiveTab(this)" hx-trigger="click" hx-get="/dashboard/selfies"
 		hx-swap="innerHTML" hx-target="#dashboard-content">
 		Global Feed
-		<span class="absolute left-0 right-0 bottom-0 h-1 bg-transparent transition-all duration-300"></span>
 	</button>
 </div>
 }

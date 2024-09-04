@@ -8,5 +8,5 @@ import (
 
 // Get the Event details page
 func eventHandler(c *fiber.Ctx) error {
-	return RenderHTML(c, layouts.Base(events.Event()))
+	return RenderHTML(c, layouts.Base("Event Page", events.Event()))
 }

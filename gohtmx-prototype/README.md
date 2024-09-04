@@ -11,7 +11,7 @@
     1. go fiber web framework - client-server stuff
     1. templ - writing html templates
 1. todo: database (supabase)
-1. todo: authentication (supabase)
+1. authentication (supabase) (WIP - only sign up done so far)
 1. todo: payment
 
 ## requirements
@@ -23,8 +23,26 @@
    go)
 1. [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) to
    install tailwindcss and daisyui, and also execute them
-1. [supabase](https://supabase.com/docs/guides/cli/getting-started?queryGroups=platform&platform=macos)
+1. [supabase](https://supabase.com/docs/guides/self-hosting/docker)
    to start/stop the supabase services
+
+### using supabase
+
+install/clone supabase from the link above in the root of this repo
+(i.e. making `tas-prototype/supabase`) and not in this directory, as doing so
+makes the `templ generate --watch` command attempt to watch _all_ the supabase
+files.
+
+you will need to copy the `./supabase-docker.env` file to
+`../supabase/docker/.env`.
+
+then when inside the `supabase/docker` directory, run the following to
+start/stop the docker containers:
+
+```sh
+docker compose up -d
+docker compose down
+```
 
 ## directory structure
 
@@ -47,22 +65,22 @@ In this dir:
 make live
 ```
 
-Then access the server at `http://localhost:7331`.
+Then access the web server at `http://localhost:7331`.
 
-### database
+### supabase
 
-In the `supabase/` dir:
+In the `supabase/docker` dir:
 
 ```sh
-supabase start
+docker compose up -d
 ```
 
-Then access the supabase interface at `http://localhost:54323`.
+Then access the supabase interface at `http://localhost:8000`.
 
 Stop it with:
 
 ```sh
-supabase stop
+docker compose down
 ```
 
 ## build/run the server (in docker)
