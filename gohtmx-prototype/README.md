@@ -44,6 +44,29 @@ docker compose up -d
 docker compose down
 ```
 
+### making the tables
+
+<!-- TODO: automate making the tables -->
+
+Start supabase up, then make the following tables, with the following columns,
+in the `public` database:
+
+1. "celebrities":
+   * celebrity_id - has only a foreign key to auth.users.id
+   * created_at - timestamp
+2. "events":
+   * id - id
+   * created_at - timestamp
+   * is_deleted - bool - default: `FALSE`
+   * celebrity_id - foreign key to public.celebrities.celebrity_id
+   * is_reserved - bool - default: `FALSE`
+   * price - text (and is the only that can be NULLable)
+   * title - text
+   * description - text
+   * activity - the smallest int
+   * city - text
+   * country - text
+
 ## directory structure
 
 * main entry point is [main.go](./main.go) (could change to `./cmd/v1/main.go`,
