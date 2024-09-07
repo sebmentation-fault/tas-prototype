@@ -1,31 +1,23 @@
 package celebrities
 
 const (
-	TableName = "celebrities"
+	TableName         = "celebrities"
+	ColumnCelebrityId = "celebrity_id"
+	ColumnCreatedAt   = "created_at"
 )
 
 type CelebrityIdType string
 
 // The struct for the celebrity
 type Celebrity struct {
-	id          CelebrityIdType
-	displayName string
+	Id          CelebrityIdType `json:"celebrity_id"`
+	DisplayName string          `json:"display_name"`
 }
 
 // Make a NewCelebrity instance
 func NewCelebrity(id CelebrityIdType, n string) *Celebrity {
 	return &Celebrity{
-		id:          id,
-		displayName: n,
+		Id:          id,
+		DisplayName: n,
 	}
-}
-
-// Get the id for the celebrity
-func (c *Celebrity) GetId() CelebrityIdType {
-	return c.id
-}
-
-// Get the display name for the celebrity
-func (c *Celebrity) GetDisplayName() string {
-	return c.displayName
 }

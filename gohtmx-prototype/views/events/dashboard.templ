@@ -1,55 +1,10 @@
 package events
 
+import (
+	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/services/events"
+)
+
 var (
-	// title, celeb, date, image url (default if blank)
-	eventsInArea = [][]string{
-		{"walk in park", "Alice P", "14 sep. 2024", "/static/images/walk.jpg"},
-		{"Coffee break", "John Doe", "30 oct. 2024", "/static/images/cafe.jpg"},
-		{"Event 4", "Celeb 4", "2 dec. 2024", ""},
-	}
-
-	// title, celeb, date, image url
-	eventsFurtherAway = [][]string{
-		{"beer time", "someone popular", "14 sep. 2024", "/static/images/pub.jpg"},
-		{"discuss money making", "the ceo", "30 oct. 2024", ""},
-		{"Event 4", "Celeb 4", "2 dec. 2024", ""},
-		{"Event 6", "Celeb 5", "3 dec. 2024", ""},
-	}
-
-	// title, celeb, date, image url
-	eventsLater = [][]string{
-		{"book club", "a mum", "14 sep. 2024", ""},
-		{"makeup tutorial", "makeup celeb", "30 oct. 2024", ""},
-		{"Event 4", "Celeb 4", "2 dec. 2024", ""},
-		{"Event 6", "Celeb 5", "3 dec. 2024", ""},
-		{"Event 8", "Celeb 6", "4 dec. 2024", ""},
-		{"Event 7", "Celeb 7", "5 dec. 2024", ""},
-		{"Event 8", "Celeb 8", "6 dec. 2024", ""},
-		{"Event 9", "Celeb 9", "7 dec. 2024", ""},
-		{"Event 10", "Celeb 20", "2 dec. 2024", ""},
-		{"Event 11", "Celeb 50", "3 dec. 2024", ""},
-		{"Event 12", "Celeb 60", "4 dec. 2024", ""},
-		{"Event 13", "Celeb 70", "5 dec. 2024", ""},
-	}
-
-	eventsList = []struct {
-		title  string
-		events [][]string
-	}{
-		{
-			"Near you (soon!)",
-			eventsInArea,
-		},
-		{
-			"Events slightly further away",
-			eventsFurtherAway,
-		},
-		{
-			"Events happening later in your area",
-			eventsLater,
-		},
-	}
-
 	// caption, image url
 	selfiesTaken = [...][]string{
 		{"Got to take a selfie with my favourite celebrity!", ""},
@@ -94,41 +49,83 @@ templ Tabs() {
 	</div>
 }
 
-// The templ showing a list of all the events that are nearby
+// The templ showing skeletons of the events so that they can be lazy loaded
+// loaded :)
+// Im so smart
 templ Events() {
-	<div id="dashboard-content">
+	<div
+		id="dashboard-content"
+		hx-get="/dashboard/event-sections"
+		hx-trigger="load"
+		hx-target="#event-sections"
+		hx-swap="innerHTML"
+	>
 		<h1 class="text-center font-bold text-5xl mb-10">Event Dashboard</h1>
-		<ul>
-			for _, eventSection := range eventsList {
+		<div id="event-sections">
+			<ul>
 				<li class="mb-8">
-					<h2 class="text-3xl font-semibold text-left mb-4">{ eventSection.title }</h2>
+					<h2 class="skeleton h-12 w-52 mb-4"></h2>
 					<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-						for _, event := range eventSection.events {
-							@eventTempl(event)
-						}
+						<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+						<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+						<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+						<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+						<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+						<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+						<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+						<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
 					</div>
 				</li>
-			}
-		</ul>
+				<li class="mb-8">
+					<h2 class="skeleton h-12 w-52 mb-4"></h2>
+					<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+						<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+						<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+						<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+						<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+						<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+						<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+						<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+						<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+					</div>
+				</li>
+			</ul>
+		</div>
 	</div>
+}
+
+// The templ showing a list of all the events that are nearby
+templ EventsFilled(eventSections []events.EventSections) {
+	<ul>
+		for _, eventSection := range eventSections {
+			<li class="mb-8">
+				<h2 class="text-3xl font-semibold text-left mb-4">{ eventSection.Title }</h2>
+				<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+					for _, event := range eventSection.Events {
+						@eventTempl(event)
+					}
+				</div>
+			</li>
+		}
+	</ul>
 }
 
 // The clickable button to go to the event
 //
 // TODO: link maps to '/event/{ event.GetId() }'
-templ eventTempl(event []string) {
+templ eventTempl(e events.Event) {
 	<a class="card image-full w-32 md:w-52 xl:w-96 shadow-xl" href="/event">
 		<figure>
-			if len(event[3]) == 0 {
+			if len(e.Activity.ImageURL) == 0 {
 				<img src="/static/images/default.jpg" alt="Image for event"/>
 			} else {
-				<img src={ event[3] } alt="Image for event"/>
+				<img src={ e.Activity.ImageURL } alt="Image for event"/>
 			}
 		</figure>
 		<div class="card-body">
-			<h3 class="card-title">{ event[0] }</h3>
-			<p class="text-xl">{ event[1] }</p>
-			<p class="text-xl">{ event[2] }</p>
+			<h3 class="card-title">{ e.Title }</h3>
+			<p class="text-xl">{ e.Celebrity.DisplayName }</p>
+			<p class="text-xl">{ e.Activity.Name }</p>
 		</div>
 	</a>
 }

@@ -17,7 +17,7 @@ func CreateEvent(s *supabase.Client, e *Event) error {
 	assert.NotNil(s, "[CreateEvent] s is nil")
 	assert.NotNil(e, "[CreateEvent] e is nil")
 
-	s.From()
+	// s.From()
 
 	return errors.New("todo")
 }

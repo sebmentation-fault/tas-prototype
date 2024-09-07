@@ -12,7 +12,7 @@ const (
 type EventIdType string
 type PriceType string
 
-// TODO: add time created field (is already in the database column)
+// TODO: add time created field (is already in the database column)?
 
 // The event struct
 //
@@ -20,20 +20,16 @@ type PriceType string
 // by the database.
 // Therefore, there is only event ids on events that have been created/fetched
 type Event struct {
-	id        EventIdType
-	isDeleted bool
-
-	celebrity  *celebrities.Celebrity
-	isReserved bool
-	price      PriceType
-
-	title       string
-	description string
-
-	activity *activities.Activity
-
-	city    string
-	country string
+	Id          EventIdType            `json:"event_id"`
+	Celebrity   *celebrities.Celebrity `json:"celebrity"`
+	IsDeleted   bool                   `json:"is_deleted"`
+	IsReserved  bool                   `json:"is_reserved"`
+	Title       string                 `json:"title"`
+	Description string                 `json:"description"`
+	Activity    *activities.Activity   `json:"activity"`
+	Price       PriceType              `json:"price"`
+	City        string                 `json:"city"`
+	Country     string                 `json:"country"`
 }
 
 // Create a new event with the id, the celebrity, the resevation status, the
@@ -43,140 +39,99 @@ type Event struct {
 // If creating an event from a form, then use the builder
 func NewEvent(
 	id EventIdType,
-	dl bool,
-	c *celebrities.Celebrity,
-	r bool,
+	celeb *celebrities.Celebrity,
+	del bool,
+	res bool,
+	title string,
+	des string,
+	act *activities.Activity,
 	p PriceType,
-	t string,
-	de string,
-	a *activities.Activity,
-	ci string,
-	co string,
+	city string,
+	country string,
 ) *Event {
 	return &Event{
-		id:          id,
-		isDeleted:   dl,
-		celebrity:   c,
-		isReserved:  r,
-		price:       p,
-		title:       t,
-		description: de,
-		activity:    a,
-		city:        ci,
-		country:     co,
+		Id:          id,
+		IsDeleted:   del,
+		Celebrity:   celeb,
+		IsReserved:  res,
+		Title:       title,
+		Description: des,
+		Price:       p,
+		Activity:    act,
+		City:        city,
+		Country:     country,
 	}
 }
 
-// Get the Id of the event
-func (e *Event) GetId() EventIdType {
-	return e.id
-}
-
-// Get the status for whether the event has been deleted
-func (e *Event) GetDeletionStatus() bool {
-	return e.isDeleted
-}
-
-// Get the celebrity of the event
-func (e *Event) GetCelebrity() *celebrities.Celebrity {
-	return e.celebrity
-}
-
-// Get the resevation status of the event
-func (e *Event) GetResevationStatus() bool {
-	return e.isReserved
-}
-
-// Get the price of the event
-func (e *Event) GetPrice() PriceType {
-	return e.price
-}
-
-// Get the title of the event
-func (e *Event) GetTitle() string {
-	return e.title
-}
-
-// Get the description of the event
-func (e *Event) GetDescription() string {
-	return e.description
-}
-
-// Get the activity of the event
-func (e *Event) GetActivity() *activities.Activity {
-	return e.activity
-}
-
-// Get the city of the event
-func (e *Event) GetCity() string {
-	return e.city
-}
-
-// Get the country of the event
-func (e *Event) GetCountry() string {
-	return e.country
+// The struct for different sections of events
+type EventSections struct {
+	Title  string  `json:"title"`
+	Events []Event `json:"events"`
 }
 
 // EventBuilder is a struct for building an event with the builder pattern
-// because enterprise level shit
+// because enterprise level shit is cool sometimes
 type EventBuilder struct {
 	event *Event
 }
 
 // NewEventBuilder creates a new EventBuilder instance
 //
-// The required values are given defaults here
+// The optional values are given defaults here
 func NewEventBuilder() *EventBuilder {
 	return &EventBuilder{
-		event: &Event{},
+		event: &Event{
+			Price:    "just the selfie :)",
+			Activity: activities.NewActivity(activities.ActivityTypeDefault),
+		},
 	}
 }
 
 // WithCelebrity sets the celebrity of the event
 func (eb *EventBuilder) WithCelebrity(c *celebrities.Celebrity) *EventBuilder {
-	eb.event.celebrity = c
+	eb.event.Celebrity = c
 	return eb
 }
 
 // WithReserved sets the reservation status of the event
 func (eb *EventBuilder) WithReserved(r bool) *EventBuilder {
-	eb.event.isReserved = r
+	eb.event.IsReserved = r
 	return eb
 }
 
 // WithPrice sets the price of the event
 func (eb *EventBuilder) WithPrice(p PriceType) *EventBuilder {
-	eb.event.price = p
+	eb.event.Price = p
 	return eb
 }
 
 // WithTitle sets the title of the event
 func (eb *EventBuilder) WithTitle(t string) *EventBuilder {
-	eb.event.title = t
+	eb.event.Title = t
 	return eb
 }
 
 // WithDescription sets the description of the event
 func (eb *EventBuilder) WithDescription(d string) *EventBuilder {
-	eb.event.description = d
+	eb.event.Description = d
 	return eb
 }
 
 // WithActivityType sets the activity of the event
 func (eb *EventBuilder) WithActivityType(a activities.ActivityType) *EventBuilder {
-	eb.event.activity = activities.NewActivity(a)
+	eb.event.Activity = activities.NewActivity(a)
 	return eb
 }
 
 // WithCity sets the city of the event
 func (eb *EventBuilder) WithCity(c string) *EventBuilder {
-	eb.event.city = c
+	eb.event.City = c
 	return eb
 }
 
 // WithCountry sets the country of the event
 func (eb *EventBuilder) WithCountry(c string) *EventBuilder {
-	eb.event.country = c
+	eb.event.Country = c
 	return eb
 }
 
@@ -205,26 +160,18 @@ func (eb *EventBuilder) Build() (*Event, []error) {
 	var errs []error
 
 	// Check the required values
-	appendErrIfTrue(eb.event.celebrity == nil, errs, NoCelebId)
-	appendErrIfTrue(eb.event.title == "", errs, NoTitle)
-	appendErrIfTrue(eb.event.description == "", errs, NoDescription)
-	appendErrIfTrue(eb.event.city == "", errs, NoCity)
-	appendErrIfTrue(eb.event.country == "", errs, NoCountry)
+	appendErrIfTrue(eb.event.Celebrity == nil, errs, NoCelebId)
+	appendErrIfTrue(eb.event.Title == "", errs, NoTitle)
+	appendErrIfTrue(eb.event.Description == "", errs, NoDescription)
+	appendErrIfTrue(eb.event.City == "", errs, NoCity)
+	appendErrIfTrue(eb.event.Country == "", errs, NoCountry)
 
 	// Return an error for each and every required value missed
 	if len(errs) > 0 {
 		return nil, errs
 	}
 
-	// Now we fill in the defaults :)
-	if eb.event.price == "" {
-		eb.event.price = "just the selfie :)"
-	}
-
-	if eb.event.activity == nil {
-		eb.event.activity = activities.NewActivity(activities.ActivityTypeDefault)
-	}
-
+	// Otherwise we return the build event :D
 	return eb.event, nil
 }
 
