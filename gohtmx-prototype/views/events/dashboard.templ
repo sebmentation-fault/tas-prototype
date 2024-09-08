@@ -114,7 +114,7 @@ templ EventsFilled(eventSections []events.EventSections) {
 //
 // TODO: link maps to '/event/{ event.GetId() }'
 templ eventTempl(e events.Event) {
-	<a class="card image-full w-32 md:w-52 xl:w-96 shadow-xl" href="/event">
+	<a class="card image-full w-32 md:w-52 xl:w-96 shadow-xl" href={ templ.SafeURL("/event/" + e.Id) }>
 		<figure>
 			if len(e.GetActivity().ImageURL) == 0 {
 				<img src="/static/images/default.jpg" alt="Image for event"/>

@@ -39,8 +39,16 @@ func GetEvents() ([]Event, error) {
 
 // TODO:
 // Service to get an event by ID
-func GetEvent(id int) (*Event, error) {
-	return nil, errors.New("todo")
+func GetEvent(id string) (*Event, error) {
+
+	// find the event in mockUpcomingEvents with matching id
+	for _, e := range mockUpcomingEvents {
+		if e.Id == id {
+			return &e, nil
+		}
+	}
+
+	return nil, errors.New("Could not find the event with the given ID")
 }
 
 var mockUpcomingEvents = []Event{
@@ -50,7 +58,7 @@ var mockUpcomingEvents = []Event{
 		false,
 		"Cafe",
 		"Have a coffee with me.",
-		"",
+		"£100",
 		"London",
 		"United Kingdom",
 		accounts.NewAccount("0", "John Doe", false, true, "", ""),

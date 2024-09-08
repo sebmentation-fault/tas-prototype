@@ -7,7 +7,8 @@ import (
 
 func SetupHandlers(app *fiber.App, client *supabase.Client) {
 	// Handle get requests to '/event'
-	app.Get("/event", eventHandler)
+	app.Get("/event/:event_id", eventHandler)
+	app.Get("/event/info/:event_id", eventFilledHandler)
 
 	// Handle get requests to '/dashboard'
 	app.Get("/dashboard", dashboardHandler)
