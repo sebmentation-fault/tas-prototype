@@ -10,8 +10,8 @@
     1. golang - language
     1. go fiber web framework - client-server stuff
     1. templ - writing html templates
+1. authentication (supabase)
 1. todo: database (supabase)
-1. authentication (supabase) (WIP - only sign up done so far)
 1. todo: payment
 
 ## requirements
@@ -46,7 +46,10 @@ docker compose down
 
 ### making the tables
 
-<!-- TODO: automate making the tables -->
+<!-- TODO: automate making the tables
+
+instead there should be a script/database migrations that populates these tables
+-->
 
 Start supabase up, then make the following tables, with the following columns,
 in the `public` database:
@@ -120,8 +123,8 @@ sell the content as ours then is ok to be used on the platform.
 
 | image | source |
 | ----- | ------ |
-| ![default/selfie](./public/images/MenSilhouettesCamera.jpg) | [Pixabay](https://pixabay.com/photos/men-silhouettes-camera-photographer-1777352/) |
-| ![cafe](./public/images/CoffeeBeansSeed.jpg)                | [Pixabay](https://pixabay.com/photos/coffee-beans-seed-powder-wooden-2560260/)     |
-| ![pub](./public/images/IrishPubLocal.jpg)                   | [Pixabay](https://pixabay.com/photos/bar-local-ireland-irish-pub-pub-209148/)      |
-| ![park](./public/images/ParkBenchForest.jpg)                | [Pixabay](https://pixabay.com/photos/park-bench-park-forest-meadow-6607626/)       |
-| ![hike](./public/images/MountainHikeFall.jpg)               | [Pixabay](https://pixabay.com/photos/mountains-hike-fall-rosswald-8411954/)        |
+| ![default/selfie](./public/images/default.jpg) | [Pixabay](https://pixabay.com/photos/men-silhouettes-camera-photographer-1777352/) |
+| ![cafe](./public/images/cafe.jpg)              | [Pixabay](https://pixabay.com/photos/coffee-beans-seed-powder-wooden-2560260/)     |
+| ![pub](./public/images/pub.jpg)                | [Pixabay](https://pixabay.com/photos/bar-local-ireland-irish-pub-pub-209148/)      |
+| ![park](./public/images/walk.jpg)              | [Pixabay](https://pixabay.com/photos/park-bench-park-forest-meadow-6607626/)       |
+| ![hike](./public/images/hike.jpg)              | [Pixabay](https://pixabay.com/photos/mountains-hike-fall-rosswald-8411954/)        |
