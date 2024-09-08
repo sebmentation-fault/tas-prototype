@@ -1,16 +1,13 @@
 package events
 
 import (
+	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/services/accounts"
 	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/services/activities"
-	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/services/celebrities"
 )
 
 const (
 	TableName = "events"
 )
-
-type EventIdType string
-type PriceType string
 
 // TODO: add time created field (is already in the database column)?
 
@@ -20,16 +17,24 @@ type PriceType string
 // by the database.
 // Therefore, there is only event ids on events that have been created/fetched
 type Event struct {
-	Id          EventIdType            `json:"event_id"`
-	Celebrity   *celebrities.Celebrity `json:"celebrity"`
-	IsDeleted   bool                   `json:"is_deleted"`
-	IsReserved  bool                   `json:"is_reserved"`
-	Title       string                 `json:"title"`
-	Description string                 `json:"description"`
-	Activity    *activities.Activity   `json:"activity"`
-	Price       PriceType              `json:"price"`
-	City        string                 `json:"city"`
-	Country     string                 `json:"country"`
+	Id          string `json:"event_id"`
+	CelebrityId string `json:"celebrity_id"`
+
+	IsDeleted  bool `json:"is_deleted"`
+	IsReserved bool `json:"is_reserved"`
+
+	Title        string                  `json:"title"`
+	Description  string                  `json:"description"`
+	ActivityType activities.ActivityType `json:"activity"`
+	Price        string                  `json:"price"`
+	City         string                  `json:"city"`
+	Country      string                  `json:"country"`
+
+	CreatedAt string `json:"created_at"`
+
+	// Pointers to the celebrity and activity
+	celebrity *accounts.Account
+	activity  *activities.Activity
 }
 
 // Create a new event with the id, the celebrity, the resevation status, the
@@ -38,29 +43,41 @@ type Event struct {
 // This function is used when creating the event from the database call.
 // If creating an event from a form, then use the builder
 func NewEvent(
-	id EventIdType,
-	celeb *celebrities.Celebrity,
+	id string,
 	del bool,
 	res bool,
 	title string,
 	des string,
-	act *activities.Activity,
-	p PriceType,
+	p string,
 	city string,
 	country string,
+	celeb *accounts.Account,
+	act *activities.Activity,
 ) *Event {
 	return &Event{
-		Id:          id,
-		IsDeleted:   del,
-		Celebrity:   celeb,
-		IsReserved:  res,
-		Title:       title,
-		Description: des,
-		Price:       p,
-		Activity:    act,
-		City:        city,
-		Country:     country,
+		Id:           id,
+		IsDeleted:    del,
+		CelebrityId:  celeb.Id,
+		IsReserved:   res,
+		Title:        title,
+		Description:  des,
+		Price:        p,
+		ActivityType: act.Type,
+		City:         city,
+		Country:      country,
+		celebrity:    celeb,
+		activity:     act,
 	}
+}
+
+// Getter for the celebrity
+func (e *Event) GetCelebrity() *accounts.Account {
+	return e.celebrity
+}
+
+// Getter for the activity
+func (e *Event) GetActivity() *activities.Activity {
+	return e.activity
 }
 
 // The struct for different sections of events
@@ -81,15 +98,17 @@ type EventBuilder struct {
 func NewEventBuilder() *EventBuilder {
 	return &EventBuilder{
 		event: &Event{
-			Price:    "just the selfie :)",
-			Activity: activities.NewActivity(activities.ActivityTypeDefault),
+			Price:        "just the selfie :)",
+			ActivityType: activities.ActivityTypeDefault,
+			activity:     activities.NewActivity(activities.ActivityTypeDefault),
 		},
 	}
 }
 
 // WithCelebrity sets the celebrity of the event
-func (eb *EventBuilder) WithCelebrity(c *celebrities.Celebrity) *EventBuilder {
-	eb.event.Celebrity = c
+func (eb *EventBuilder) WithCelebrity(c *accounts.Account) *EventBuilder {
+	eb.event.CelebrityId = c.Id
+	eb.event.celebrity = c
 	return eb
 }
 
@@ -100,7 +119,7 @@ func (eb *EventBuilder) WithReserved(r bool) *EventBuilder {
 }
 
 // WithPrice sets the price of the event
-func (eb *EventBuilder) WithPrice(p PriceType) *EventBuilder {
+func (eb *EventBuilder) WithPrice(p string) *EventBuilder {
 	eb.event.Price = p
 	return eb
 }
@@ -119,7 +138,8 @@ func (eb *EventBuilder) WithDescription(d string) *EventBuilder {
 
 // WithActivityType sets the activity of the event
 func (eb *EventBuilder) WithActivityType(a activities.ActivityType) *EventBuilder {
-	eb.event.Activity = activities.NewActivity(a)
+	eb.event.ActivityType = a
+	eb.event.activity = activities.NewActivity(a)
 	return eb
 }
 
@@ -160,7 +180,7 @@ func (eb *EventBuilder) Build() (*Event, []error) {
 	var errs []error
 
 	// Check the required values
-	appendErrIfTrue(eb.event.Celebrity == nil, errs, NoCelebId)
+	appendErrIfTrue(eb.event.CelebrityId == "" || eb.event.celebrity == nil, errs, NoCelebId)
 	appendErrIfTrue(eb.event.Title == "", errs, NoTitle)
 	appendErrIfTrue(eb.event.Description == "", errs, NoDescription)
 	appendErrIfTrue(eb.event.City == "", errs, NoCity)

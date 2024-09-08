@@ -27,13 +27,6 @@ type Activity struct {
 
 func NewActivity(a ActivityType) *Activity {
 	switch a {
-	case ActivityTypeDefault:
-		return &Activity{
-			Type:     ActivityTypeDefault,
-			Name:     "Take a selfie",
-			IconURL:  "/static/icons/camera.svg",
-			ImageURL: "/static/images/default.jpg",
-		}
 	case ActivityTypeChat:
 		return &Activity{
 			Type:     ActivityTypeDefault,
@@ -77,5 +70,10 @@ func NewActivity(a ActivityType) *Activity {
 			ImageURL: "/static/images/hike.jpg",
 		}
 	}
-	panic("[NewActivity] Switch failed")
+	return &Activity{
+		Type:     ActivityTypeDefault,
+		Name:     "Take a selfie",
+		IconURL:  "/static/icons/camera.svg",
+		ImageURL: "/static/images/default.jpg",
+	}
 }

@@ -116,16 +116,16 @@ templ EventsFilled(eventSections []events.EventSections) {
 templ eventTempl(e events.Event) {
 	<a class="card image-full w-32 md:w-52 xl:w-96 shadow-xl" href="/event">
 		<figure>
-			if len(e.Activity.ImageURL) == 0 {
+			if len(e.GetActivity().ImageURL) == 0 {
 				<img src="/static/images/default.jpg" alt="Image for event"/>
 			} else {
-				<img src={ e.Activity.ImageURL } alt="Image for event"/>
+				<img src={ e.GetActivity().ImageURL } alt="Image for event"/>
 			}
 		</figure>
 		<div class="card-body">
 			<h3 class="card-title">{ e.Title }</h3>
-			<p class="text-xl">{ e.Celebrity.DisplayName }</p>
-			<p class="text-xl">{ e.Activity.Name }</p>
+			<p class="text-xl">{ e.GetCelebrity().DisplayName }</p>
+			<p class="text-xl">{ e.GetActivity().Name }</p>
 		</div>
 	</a>
 }

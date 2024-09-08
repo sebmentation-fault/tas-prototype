@@ -20,6 +20,9 @@ func SetupHandlers(app *fiber.App, client *supabase.Client) {
 	app.Get("/auth/signup", signUpHandler)
 	app.Get("/auth/login", logInHandler)
 
+	// Handle get requests to '/headers'
+	app.Get("/headers/account-info", accountButtonHandler)
+
 	// From the form submits
 	app.Post("/auth/signup", signUpSubmittedHandlerWrapper(client))
 	app.Post("/auth/login", logInSubmittedHandlerWrapper(client))
