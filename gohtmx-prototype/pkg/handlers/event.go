@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/services/accounts"
 	event_service "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/services/events"
 	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/events"
 	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/layouts"
@@ -13,7 +14,11 @@ import (
 func eventHandler(c *fiber.Ctx) error {
 	id := c.Params("event_id")
 	url := "/event/info/" + id
-	return RenderHTML(c, layouts.Base("Event Page", events.Event(url)))
+
+	// TODO: get account
+	var acc = &accounts.Account{}
+
+	return RenderHTML(c, layouts.AuthorizedBase("Event Page", acc, events.Event(url)))
 }
 
 // Get the Event details page filled
@@ -30,5 +35,5 @@ func eventFilledHandler(c *fiber.Ctx) error {
 		return c.SendString("redirecting...")
 	}
 
-	return RenderHTML(c, events.EventFilled(e, e.GetActivity().ImageURL))
+	return RenderHTML(c, events.EventFilled(e))
 }

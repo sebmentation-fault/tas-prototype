@@ -26,7 +26,7 @@ func CreateEvent(s *supabase.Client, e *Event) error {
 	if e.Id == "" {
 		slog.Error("[CreateEvent] id is still empty after being made")
 	} else {
-		slog.Info("[CreateEvent] id updated successfully to %s", e.Id)
+		slog.Info("[CreateEvent] id updated successfully to %s", string(e.Id))
 	}
 
 	return nil

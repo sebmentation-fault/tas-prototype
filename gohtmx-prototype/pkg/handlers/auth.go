@@ -9,7 +9,7 @@ import (
 )
 
 func authHandler(c *fiber.Ctx) error {
-	return RenderHTML(c, layouts.Base("Authenticate", auth.SignUpTempl()))
+	return RenderHTML(c, layouts.AuthorizedBase("Authenticate", nil, auth.SignUpTempl()))
 }
 
 // the first two handlers simply render the html with the base layout

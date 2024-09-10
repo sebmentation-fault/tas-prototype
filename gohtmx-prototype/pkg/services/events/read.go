@@ -16,11 +16,11 @@ import (
 // if there is a change to events in los angleleleles)
 func GetEventsBySection() ([]EventSections, error) {
 	var es = []EventSections{
-		EventSections{
+		{
 			Title:  "Upcoming, close",
 			Events: mockUpcomingEvents,
 		},
-		EventSections{
+		{
 			Title:  "Upcoming, further away",
 			Events: mockUpcomingEventsFurtherAway,
 		},

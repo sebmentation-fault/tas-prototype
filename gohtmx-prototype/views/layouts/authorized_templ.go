@@ -12,11 +12,12 @@ import "bytes"
 
 import "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/components/footers"
 import "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/components/headers"
+import "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/services/accounts"
 
 // The base templ with authorisation
 //
 // includes the scripts necessary for authorisation with supabase
-func Base(title string, children ...templ.Component) templ.Component {
+func AuthorizedBase(title string, a *accounts.Account, children ...templ.Component) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -33,7 +34,7 @@ func Base(title string, children ...templ.Component) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = headers.Header().Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = headers.AuthorizedHeader(a).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

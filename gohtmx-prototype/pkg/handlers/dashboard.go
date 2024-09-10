@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/services/accounts"
 	services_events "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/services/events"
 	view_events "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/events"
 	view_layouts "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/layouts"
@@ -11,7 +12,10 @@ import (
 
 // Get the Dashboard page
 func dashboardHandler(c *fiber.Ctx) error {
-	return RenderHTML(c, view_layouts.Base("Dashboard", view_events.Tabs(), view_events.Events()))
+	// TODO: get account
+	var acc = accounts.Account{}
+
+	return RenderHTML(c, view_layouts.AuthorizedBase("Dashboard", acc, view_events.Tabs(), view_events.Events()))
 }
 
 // Get the events list skeleton
