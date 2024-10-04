@@ -13,7 +13,14 @@ import (
 // Get the Dashboard page
 func dashboardHandler(c *fiber.Ctx) error {
 	// TODO: get account
-	var acc = accounts.Account{}
+	var acc = &accounts.Account{
+		Id:            "0",
+		DisplayName:   "John Doe",
+		IsDeleted:     false,
+		IsCelebrity:   false,
+		DateCreated:   "01/01/2001",
+		DateLastLogin: "15/09/2024",
+	}
 
 	return RenderHTML(c, view_layouts.AuthorizedBase("Dashboard", acc, view_events.Tabs(), view_events.Events()))
 }

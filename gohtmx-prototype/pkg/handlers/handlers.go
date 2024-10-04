@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"fmt"
+
 	jwtware "github.com/gofiber/contrib/jwt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/supabase-community/supabase-go"
@@ -18,14 +20,31 @@ func SetupHandlers(app *fiber.App, client *supabase.Client) {
 	app.Get("/auth/login", logInHandler)
 
 	// From the form submits
-	app.Post("/auth/signup", signUpSubmittedHandlerWrapper(client))
-	app.Post("/auth/login", logInSubmittedHandlerWrapper(client))
+	// TODO: change this to an actual secret (e.g. in an ENV)
+	signingKey := []byte("secret")
+	app.Post("/auth/signup", signUpSubmittedHandlerWrapper(client, signingKey))
+	app.Post("/auth/login", logInSubmittedHandlerWrapper(client, signingKey))
 
 	// ----- Authorized routes -----
-	// TODO: change this to an actual secret
-	signingKey := []byte("secret")
 	app.Use(jwtware.New(jwtware.Config{
 		SigningKey: jwtware.SigningKey{Key: signingKey},
+		// read the cookie
+		TokenLookup: "cookie:token",
+		// if success, go the thing
+		SuccessHandler: func(c *fiber.Ctx) error {
+			fmt.Println("Successing")
+			return c.Next() // Proceed if token is valid
+		},
+		// if something wrong, then we should address it
+		ErrorHandler: func(c *fiber.Ctx, err error) error {
+			// TODO: figure out actual error
+			// * JWT token expired -> re-login
+			// * straight up not present -> login
+			// * is there a different error where something else should happen?
+			// maybe requires adding message/toast/notification explaining message
+			fmt.Println("Erroring: ", err)
+			return c.Redirect("/auth")
+		},
 	}))
 
 	// Handle get requests to '/event'

@@ -30,7 +30,7 @@ func AuthorizedBase(title string, a *accounts.Account, children ...templ.Compone
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\"><head><title>gohtmx prototype</title><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><meta name=\"description\" content=\"authorisation page\"><script type=\"importmap\">\n\t\t\t{\n\t\t\t\t\"imports\": {\n\t\t\t\t\t\"@supabase/supabase-js\": \"https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm\",\n\t\t\t\t\t\"@supabase/auth-helpers-shared\": \"https://unpkg.com/@supabase/auth-helpers-shared@0.4.1/dist/index.mjs\",\n\t\t\t\t\t\"jose\": \"https://unpkg.com/jose/dist/browser/index.js\"\n\t\t\t\t}\n\t\t\t}\n\t\t\t</script><script src=\"/static/js/htmx.min.js\"></script><link rel=\"stylesheet\" href=\"/static/css/style.css\"></head><body class=\"flex flex-col h-screen justify-between\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\"><head><title>gohtmx prototype</title><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><meta name=\"description\" content=\"authorisation page\"><!--\n\t<script type=\"importmap\">\n\t\t\t{\n\t\t\t\t\"imports\": {\n\t\t\t\t\t\"@supabase/supabase-js\": \"https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm\",\n\t\t\t\t\t\"@supabase/auth-helpers-shared\": \"https://unpkg.com/@supabase/auth-helpers-shared@0.4.1/dist/index.mjs\",\n\t\t\t\t\t\"jose\": \"https://unpkg.com/jose/dist/browser/index.js\"\n\t\t\t\t}\n\t\t\t}\n\t\t\t</script>\n\t<script src=\"/static/js/htmx.min.js\"></script>\n\t--><link rel=\"stylesheet\" href=\"/static/css/style.css\"></head><body class=\"flex flex-col h-screen justify-between\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -38,7 +38,7 @@ func AuthorizedBase(title string, a *accounts.Account, children ...templ.Compone
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main class=\"flex-1 px-2 sm:px-4 md:px-8 lg:px-16 xl:px-32\" hx-trigger=\"supabase-auth-change from:document\" hx-post=\"/todo-authentication-has-changed\" hx-swap=\"innerHTML\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main class=\"flex-1 px-2 sm:px-4 md:px-8 lg:px-16 xl:px-32\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
