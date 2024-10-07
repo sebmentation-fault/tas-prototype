@@ -2,4 +2,6 @@ bin/
 node_modules/
 tmp/
 
+takeaselfie.db
+
 **/*_templ.txt
