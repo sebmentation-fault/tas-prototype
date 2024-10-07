@@ -5,7 +5,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/jmoiron/sqlx"
-	authservices "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/auth-services"
 	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/components/hero"
 	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/layouts/base"
 )
@@ -33,6 +32,7 @@ func SetupHandlers(server *TASServer) {
 	// set up the authentication-related handlers
 	SetupAuthHandlers(server)
 	SetupAdminHandlers(server)
+	SetupEventsHandlers(server)
 	// TODO: setup other handlers too
 
 	// a not-found middleware

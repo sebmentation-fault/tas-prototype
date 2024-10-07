@@ -1,0 +1,70 @@
+package events
+
+import "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/db"
+import "strconv"
+
+templ EventsSkeleton() {
+<div id="dashboard-content" hx-get="/events/data" hx-trigger="load" hx-target="#event-sections" hx-swap="innerHTML">
+	<h1 class="text-center font-bold text-5xl mb-10">Events</h1>
+	<div id="event-sections">
+		<ul>
+			<li class="mb-8">
+				<h2 class="skeleton h-12 w-52 mb-4"></h2>
+				<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+					<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+					<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+					<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+					<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+					<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+					<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+					<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+					<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+				</div>
+			</li>
+			<li class="mb-8">
+				<h2 class="skeleton h-12 w-52 mb-4"></h2>
+				<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+					<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+					<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+					<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+					<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+					<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+					<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+					<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+					<div class="skeleton w-32 md:w-52 xl:w-96 h-40"></div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+}
+
+templ Events(eventSections map[string][]db.Event) {
+<ul>
+	for sectionName, events := range eventSections {
+	<li class="mb-8">
+		<h2 class="text-3xl font-semibold text-left mb-4">{ sectionName }</h2>
+		<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+			for _, e := range events {
+			@eventTempl(&e)
+			}
+		</div>
+	</li>
+	}
+</ul>
+}
+
+// The clickable button to go to the event
+//
+// TODO: add other images that can be found in the event object
+templ eventTempl(e *db.Event) {
+<a class="card image-full w-32 md:w-52 xl:w-96 shadow-xl" href={ templ.SafeURL("/events/" + strconv.Itoa(int(e.ID))) }>
+	<figure>
+		<img src="/static/images/default.jpg" alt="Image for event" />
+	</figure>
+	<div class="card-body">
+		<h3 class="card-title">{ e.Location }</h3> // FIXME: this should be a title not a location
+		<p class="text-xl">{ e.CelebrityID }</p> // FIXME: this should read in the celebrity's name
+	</div>
+</a>
+}

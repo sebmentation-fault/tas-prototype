@@ -1,0 +1,43 @@
+package events
+
+import "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/db"
+
+templ EventSkeleton(url string) {
+<div id="event-loader" hx-trigger="load" hx-get={ url } hx-swap="outerHTML" hx-target="#event-loader">
+	<h1 class="skeleton h-12 w-40"></h1>
+	<div class="card skeleton mx-4 md:mx-10 lg:mx-28 h-52 mb-10"></div>
+</div>
+}
+
+// TODO: get
+// - celeb name
+// - different images
+templ Event(e *db.Event) {
+<h1 class="text-5xl font-bold text-center mb-10">Take a selfie with { e.CelebrityID }</h1> // FIXME: get the celeb name
+<div class="card md:card-side mx-4 md:mx-10 lg:mx-28 bg-base-100 shadow-xl mb-10">
+	<figure>
+		// FIXME: this should point to a more custom image
+		<img src="/static/images/default.jpg" alt="Default image for event" />
+	</figure>
+	// so that there is a min width for the text
+	<div class="card-body md:min-w-80">
+		<h2 class="card-title">
+			<span class="text-primary font-semibold">{ e.Title }</span>
+		</h2>
+		<span>
+			at
+			<span class="text-secondary font-semibold">{ e.Location }</span>
+			in
+			<span class="text-secondary font-semibold">{ e.City }, { e.Country }</span>
+		</span>
+		<p>{ e.Description }</p>
+		<div class="card-actions justify-end">
+			if len(e.Price) == 0 {
+			<a class="btn btn-primary" href="/todo-waiting-room-thing">Reserve for Free</a>
+			} else {
+			<a class="btn btn-primary" href="/todo-waiting-room-thing">Reserve and Pay { e.Price }</a>
+			}
+		</div>
+	</div>
+</div>
+}

@@ -28,42 +28,48 @@ type Celebrity struct {
 
 // Event represents an event in the Events table
 type Event struct {
-	ID           int64   `db:"id"             json:"id"`             // Event Id
-	CelebrityID  string  `db:"celebrity_id"   json:"celebrity_id"`   // Foreign key to Celebrities table
-	IsReservedBy *string `db:"is_reserved_by" json:"is_reserved_by"` // Nullable reference to Accounts table - if null then not reserved
-	IsDeleted    bool    `db:"is_deleted"     json:"is_deleted"`     // Indicates if the event is deleted
-	Price        string  `db:"price"          json:"price"`          // Price
-	Location     string  `db:"location"       json:"location"`       // Location
-	City         string  `db:"city"           json:"city"`           // City
-	Country      string  `db:"country"        json:"country"`        // Country
+	ID           int64     `db:"id"             json:"id"`             // Event Id
+	CelebrityID  string    `db:"celebrity_id"   json:"celebrity_id"`   // Foreign key to Celebrities table
+	Title        string    `db:"title"          json:"title"`          // Title
+	When         time.Time `db:"happens_when"           json:"when"`   // Time that it happens
+	Description  string    `db:"description"    json:"description"`    // Event description
+	IsReservedBy *string   `db:"is_reserved_by" json:"is_reserved_by"` // Nullable reference to Accounts table - if null then not reserved
+	IsDeleted    bool      `db:"is_deleted"     json:"is_deleted"`     // Indicates if the event is deleted
+	Price        string    `db:"price"          json:"price"`          // Price
+	Location     string    `db:"location"       json:"location"`       // Location
+	City         string    `db:"city"           json:"city"`           // City
+	Country      string    `db:"country"        json:"country"`        // Country
 }
 
 const (
 	createSchema = `
 CREATE TABLE IF NOT EXISTS Accounts (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	type INT NOT NULL,
-	username TEXT NOT NULL UNIQUE,
-	email TEXT NOT NULL UNIQUE,
-	hashed_password TEXT NOT NULL,
-	datetime_joined DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	id                      INTEGER  PRIMARY KEY AUTOINCREMENT,
+	type                    INT      NOT NULL,
+	username                TEXT     NOT NULL    UNIQUE,
+	email                   TEXT     NOT NULL    UNIQUE,
+	hashed_password         TEXT     NOT NULL,
+	datetime_joined         DATETIME NOT NULL    DEFAULT CURRENT_TIMESTAMP,
 	datetime_last_logged_in DATETIME NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Celebrities (
 	account_id INTEGER PRIMARY KEY REFERENCES Accounts(id) ON DELETE CASCADE,
-	biography TEXT NOT NULL
+	biography  TEXT    NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Events (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	celebrity_id TEXT NOT NULL REFERENCES Celebrities(id) ON DELETE CASCADE,
-	is_reserved_by TEXT REFERENCES Accounts(id) ON DELETE SET NULL,
-	is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
-	price TEXT NOT NULL,
-	location TEXT NOT NULL,
-	city TEXT NOT NULL,
-	country TEXT NOT NULL
+	id             INTEGER  PRIMARY KEY AUTOINCREMENT,
+	celebrity_id   TEXT     NOT NULL    REFERENCES Celebrities(id) ON DELETE CASCADE,
+	title          TEXT     NOT NULL,
+	happens_when   DATETIME NOT NULL    DEFAULT CURRENT_TIMESTAMP,
+	description    TEXT     NOT NULL,
+	is_reserved_by INTEGER  REFERENCES Accounts(id) ON DELETE SET NULL,
+	is_deleted     BOOLEAN  NOT NULL    DEFAULT FALSE,
+	price          TEXT     NOT NULL,
+	location       TEXT     NOT NULL,
+	city           TEXT     NOT NULL,
+	country        TEXT     NOT NULL
 );
 	`
 
