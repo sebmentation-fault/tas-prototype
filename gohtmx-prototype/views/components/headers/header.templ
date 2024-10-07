@@ -1,29 +1,59 @@
 package headers
 
-// NOTE: source: https://daisyui.com/components/navbar/
-templ Header() {
-<header class="navbar bg-base-100">
+import (
+	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/db"
+)
+
+// The default header
+//
+// If user is nil, then we are not signed in, so will show signup button
+// if user not nil, show account info button
+// TODO: add a button with account info if user not null
+templ Header(user *db.User, children ...templ.Component) {
+	<header class="navbar bg-base-100">
+		@hamburgerMenu()
+		@homeButton()
+		<div class="flex-none">
+			if user == nil {
+				<a class="btn btn-primary" href="/auth">Log in</a>
+			} else {
+				<button class="btn btn-primary">Logged In</button>
+			}
+			@optionsMenu()
+		</div>
+	</header>
+}
+
+templ hamburgerMenu() {
 	<div class="flex-none">
 		<button class="btn btn-square btn-ghost">
-			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-				class="inline-block h-5 w-5 stroke-current">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
-				</path>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				class="inline-block h-5 w-5 stroke-current"
+			>
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
 			</svg>
 		</button>
 	</div>
+}
+
+templ homeButton() {
 	<div class="flex-1">
 		<a class="btn btn-ghost text-xl" href="/">take-a-selfie</a>
 	</div>
-	<div class="flex-none">
-		<button class="btn btn-square btn-ghost">
-			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-				class="inline-block h-5 w-5 stroke-current">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-					d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
-				</path>
-			</svg>
-		</button>
-	</div>
-</header>
+}
+
+templ optionsMenu() {
+	<button class="btn btn-square btn-ghost">
+		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-5 w-5 stroke-current">
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="2"
+				d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
+			></path>
+		</svg>
+	</button>
 }

@@ -1,64 +1,50 @@
 package handlers
 
 import (
-	"fmt"
-
-	jwtware "github.com/gofiber/contrib/jwt"
+	"github.com/a-h/templ"
 	"github.com/gofiber/fiber/v2"
-	"github.com/supabase-community/supabase-go"
+	"github.com/gofiber/fiber/v2/middleware/session"
+	"github.com/jmoiron/sqlx"
+	authservices "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/auth-services"
+	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/components/hero"
+	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/layouts/base"
 )
 
-func SetupHandlers(app *fiber.App, client *supabase.Client) {
-	// ----- Unauthorized routes -----
+type TASServer struct {
+	Server *fiber.App
+	Store  *session.Store
+	DB     *sqlx.DB
+}
+
+func SetupHandlers(server *TASServer) {
+	app := server.Server
 
 	// Handle get requests to '/'
-	app.Get("/", Index)
+	app.Get("/", func(c *fiber.Ctx) error {
+		// check if user logged in, then the account should be passed in
+		// (e.g. so that the header can be epic and show funky information)
+		return renderHTML(c, base.Base("Get Started", "Index", nil, hero.Hero(nil)))
+	})
 
-	// Handle get requests to '/auth'
-	app.Get("/auth", authHandler)
-	app.Get("/auth/signup", signUpHandler)
-	app.Get("/auth/login", logInHandler)
+	app.Get("/dashboard", func(c *fiber.Ctx) error {
+		return c.SendString("The dashboard")
+	})
 
-	// From the form submits
-	// TODO: change this to an actual secret (e.g. in an ENV)
-	signingKey := []byte("secret")
-	app.Post("/auth/signup", signUpSubmittedHandlerWrapper(client, signingKey))
-	app.Post("/auth/login", logInSubmittedHandlerWrapper(client, signingKey))
+	// set up the authentication-related handlers
+	SetupAuthHandlers(server)
+	SetupAdminHandlers(server)
+	// TODO: setup other handlers too
 
-	// ----- Authorized routes -----
-	app.Use(jwtware.New(jwtware.Config{
-		SigningKey: jwtware.SigningKey{Key: signingKey},
-		// read the cookie
-		TokenLookup: "cookie:token",
-		// if success, go the thing
-		SuccessHandler: func(c *fiber.Ctx) error {
-			fmt.Println("Successing")
-			return c.Next() // Proceed if token is valid
-		},
-		// if something wrong, then we should address it
-		ErrorHandler: func(c *fiber.Ctx, err error) error {
-			// TODO: figure out actual error
-			// * JWT token expired -> re-login
-			// * straight up not present -> login
-			// * is there a different error where something else should happen?
-			// maybe requires adding message/toast/notification explaining message
-			fmt.Println("Erroring: ", err)
-			return c.Redirect("/auth")
-		},
-	}))
+	// a not-found middleware
+	app.Use(func(c *fiber.Ctx) error {
+		return c.SendStatus(fiber.StatusNotFound)
+	})
+}
 
-	// Handle get requests to '/event'
-	app.Get("/event/:event_id", eventHandler)
-	app.Get("/event/info/:event_id", eventFilledHandler)
-
-	// Handle get requests to '/dashboard'
-	app.Get("/dashboard", dashboardHandler)
-	app.Get("/dashboard/events", eventsHandler)
-	app.Get("/dashboard/event-sections", eventSectionsHandler)
-	app.Get("/dashboard/selfies", feedHandler)
-	// Handle get requests to '/headers'
-	app.Get("/headers/account-info", accountButtonHandler)
-
-	// If no requests succeeds, then show the 404 not found page
-	app.Use(notFoundMiddleware)
+// A Render function that renders templ-HTML with a given Fiber context.
+//
+// From the templ docs.
+func renderHTML(c *fiber.Ctx, component templ.Component) error {
+	c.Set(fiber.HeaderContentType, fiber.MIMETextHTML)
+	return component.Render(c.Context(), c.Response().BodyWriter())
 }

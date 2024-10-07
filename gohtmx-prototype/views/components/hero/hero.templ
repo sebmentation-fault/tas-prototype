@@ -1,0 +1,36 @@
+package hero
+
+import (
+	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/db"
+)
+
+// If the user is not logged in, then get started -> log in
+// If the user is, then get started -> dashboard
+templ Hero(user *db.User) {
+	<div class="hero-content text-center">
+		<div class="max-w-md">
+			<h1 class="text-5xl font-bold">Welcome to prototype app</h1>
+			<p class="py-6">
+				A descriptive description about what we do. Note to self to
+				come up with a good description that could be added here.
+			</p>
+			if user == nil {
+				<a class="btn btn-primary" href="/auth">Get Started</a>
+			} else {
+				<a class="btn btn-primary" href="/dashboard">Get Started</a>
+			}
+		</div>
+	</div>
+	<div class="hero-content text-center mt-8">
+		<div class="max-w-md">
+			<h2 class="text-3xl font-semibold">Want to create events?</h2>
+			<p class="py-6">
+				If you are a celebrity and want to meet your fans in a natural environment and
+				<span class="text-primary">take a selfie</span>:
+			</p>
+			<div>
+				<a class="btn btn-neutral" href="/get-in-touch">Get in touch</a>
+			</div>
+		</div>
+	</div>
+}

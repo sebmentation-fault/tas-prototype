@@ -1,0 +1,36 @@
+package base
+
+import (
+	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/db"
+	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/components/headers"
+	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/components/footers"
+)
+
+// The base templ layout.
+//
+// Pass in the title so that browser tab thing shows epic text
+// Pass in the metaDescription for extra search engine optimizations
+// Pass in the user so we can show epic user-type information
+// Pass in the children!
+templ Base(title string, metaDescription string, user *db.User, children ...templ.Component) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<title>{ title }</title>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<meta name="description" content={ metaDescription }/>
+			<script src="/static/js/htmx.min.js"></script>
+			<link rel="stylesheet" href="/static/css/style.css"/>
+		</head>
+		<body class="flex flex-col h-screen justify-between">
+			@headers.Header(user)
+			<main class="flex-1 px-2 sm:px-4 md:px-8 lg:px-16 xl:px-32">
+				for _, child := range children {
+					@child
+				}
+			</main>
+			@footers.Footer()
+		</body>
+	</html>
+}
