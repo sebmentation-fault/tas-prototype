@@ -24,7 +24,7 @@ templ Base(title string, metaDescription string, user *db.User, children ...temp
 			<link rel="stylesheet" href="/static/css/style.css"/>
 		</head>
 		<body class="flex flex-col h-screen justify-between">
-			@headers.Header(user)
+			@headers.Header()
 			<main class="flex-1 px-2 sm:px-4 md:px-8 lg:px-16 xl:px-32">
 				for _, child := range children {
 					@child

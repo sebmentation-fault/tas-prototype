@@ -39,25 +39,41 @@ func ValidateJWTToken(t string) (*jwt.Token, error) {
 // attempts to get an account object from the token
 //
 // if unsuccessful, returns an error
-func GetAccountIdAndTypeFromToken(t *jwt.Token) (int64, int, error) {
+func GetUserFromToken(t *jwt.Token) (db.User, error) {
 	claims, ok := t.Claims.(jwt.MapClaims)
 	if !ok {
-		return -1, -1, errors.New("could not produce claim")
+		return nil, errors.New("could not produce claim")
 	}
 
 	// Extract and convert the ID
 	idFloat, ok := claims["id"].(float64)
 	if !ok {
-		return -1, -1, errors.New("invalid ID type in claims")
+		return nil, errors.New("invalid ID type in claims")
 	}
 	id := int64(idFloat)
 
 	// Extract and convert the user type
 	typeFloat, ok := claims["type"].(float64)
 	if !ok {
-		return -1, -1, errors.New("invalid user type in claims")
+		return nil, errors.New("invalid user type in claims")
 	}
 	userType := int(typeFloat)
 
-	return id, userType, nil
+	// TODO: special cases for admin/celeb?
+	// FIXME: read from the db
+	acc := &db.Account{
+		ID:                   id,
+		Type:                 userType,
+		Username:             "John Doe",
+		Email:                "john@doe.com",
+		HashedPassword:       "...",
+		DateTimeJoined:       time.Now(),
+		DateTimeLastLoggedIn: time.Now(),
+	}
+
+	user := &db.Fan{
+		Account: acc,
+	}
+
+	return user, nil
 }

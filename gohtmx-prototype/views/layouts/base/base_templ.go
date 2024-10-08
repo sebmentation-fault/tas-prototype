@@ -65,7 +65,7 @@ func Base(title string, metaDescription string, user *db.User, children ...templ
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = headers.Header(user).Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = headers.Header().Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

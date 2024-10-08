@@ -33,6 +33,7 @@ func SetupHandlers(server *TASServer) {
 	SetupAuthHandlers(server)
 	SetupAdminHandlers(server)
 	SetupEventsHandlers(server)
+	SetupHeaderHandlers(server)
 	// TODO: setup other handlers too
 
 	// a not-found middleware

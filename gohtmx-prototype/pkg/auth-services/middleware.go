@@ -9,34 +9,17 @@ import (
 
 func AuthMiddleware(c *fiber.Ctx) error {
 	// Check for authentication credentials
-	tokenString := c.Cookies("jwt")
-
-	token, err := ValidateJWTToken(tokenString)
+	user, err := GetUserFromContext(c)
 
 	if err != nil {
-		slog.Info("Problem parsing the token: ", err)
-		c.Status(fiber.StatusUnprocessableEntity)
-		c.Set(fiber.HeaderContentType, fiber.MIMETextHTML)
-		return c.SendString("Problem encountered while parsing the token")
-	}
-
-	if !token.Valid {
-		slog.Info("User is using an invalid token")
 		c.Status(fiber.StatusUnauthorized)
 		c.Set(fiber.HeaderContentType, fiber.MIMETextHTML)
-		return c.SendString("Invalid token")
+		return c.SendString("Unauthorized or malformed jwt")
 	}
 
-	id, userType, err := GetAccountIdAndTypeFromToken(token)
-	if err != nil {
-		slog.Info("Token could not be parsed")
-		c.Status(fiber.StatusUnprocessableEntity)
-		c.Set(fiber.HeaderContentType, fiber.MIMETextHTML)
-		return c.SendString("Invalid token")
-	}
-
-	c.Locals("user_id", id)
-	c.Locals("user_type", userType)
+	c.Locals("user_id", user.GetID())
+	c.Locals("user_type", user.GetUserType())
+	c.Locals("user_name", user.GetName())
 
 	// If credentials are valid, proceed to the next middleware or route
 	return c.Next()

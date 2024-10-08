@@ -9,16 +9,12 @@ import (
 // If user is nil, then we are not signed in, so will show signup button
 // if user not nil, show account info button
 // TODO: add a button with account info if user not null
-templ Header(user *db.User, children ...templ.Component) {
+templ Header(children ...templ.Component) {
 	<header class="navbar bg-base-100">
 		@hamburgerMenu()
 		@homeButton()
 		<div class="flex-none">
-			if user == nil {
-				<a class="btn btn-primary" href="/auth">Log in</a>
-			} else {
-				<button class="btn btn-primary">Logged In</button>
-			}
+			@actionSkeleton()
 			@optionsMenu()
 		</div>
 	</header>
@@ -43,6 +39,27 @@ templ homeButton() {
 	<div class="flex-1">
 		<a class="btn btn-ghost text-xl" href="/">take-a-selfie</a>
 	</div>
+}
+
+templ actionSkeleton() {
+	<button
+		class="btn skeleton w-5"
+		hx-trigger="load"
+		hx-get="/header/action-button"
+		hx-swap="outerHTML"
+		hx-target="this"
+	></button>
+}
+
+// this primary action button is either:
+// - login if the user is not logged in
+// - user info if the user is logged in
+templ ActionButton(user *db.User) {
+	if user == nil {
+		<a class="btn btn-primary" href="/auth">Log in</a>
+	} else {
+		<button class="btn btn-primary">Welcome back, { (*user).GetName() }</button>
+	}
 }
 
 templ optionsMenu() {
