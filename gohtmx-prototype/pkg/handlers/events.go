@@ -25,6 +25,9 @@ func SetupEventsHandlers(server *TASServer) {
 		return renderHTML(c, templ)
 	}) // /events
 	events.Get("data", func(c *fiber.Ctx) error {
+		// testing/mock slow db
+		time.Sleep(2 * time.Second)
+
 		// only the events is needed here
 		// we do not need to send over the header/footer/etc again
 
@@ -46,6 +49,9 @@ func SetupEventsHandlers(server *TASServer) {
 		return renderHTML(c, templ)
 	}) // /events/:event_id<min(0)>
 	events.Get("/data/:event_id<min(0)>", func(c *fiber.Ctx) error {
+		// testing/mock slow db
+		time.Sleep(2 * time.Second)
+
 		event := db.Event{
 			ID:           1,
 			CelebrityID:  "1",

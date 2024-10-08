@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"log/slog"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 	authservices "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/auth-services"
@@ -13,6 +14,9 @@ func SetupHeaderHandlers(server *TASServer) {
 	header := app.Group("/header")
 
 	header.Get("/action-button", func(c *fiber.Ctx) error {
+		// testing/mock slow db
+		time.Sleep(2 * time.Second)
+
 		user, err := authservices.GetUserFromContext(c)
 		if err != nil {
 			slog.Info("Could not get user from context" + err.Error())
