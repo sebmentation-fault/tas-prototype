@@ -5,6 +5,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/jmoiron/sqlx"
+	authservices "github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/auth-services"
 	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/components/hero"
 	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/layouts/base"
 )
@@ -22,7 +23,9 @@ func SetupHandlers(server *TASServer) {
 	app.Get("/", func(c *fiber.Ctx) error {
 		// check if user logged in, then the account should be passed in
 		// (e.g. so that the header can be epic and show funky information)
-		return renderHTML(c, base.Base("Get Started", "Index", nil, hero.Hero(nil)))
+		user, _ := authservices.GetUserFromContext(c)
+
+		return renderHTML(c, base.Base("Get Started", "Index", hero.Hero(&user)))
 	})
 
 	app.Get("/dashboard", func(c *fiber.Ctx) error {

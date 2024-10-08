@@ -21,7 +21,7 @@ func SetupEventsHandlers(server *TASServer) {
 	// Then we actually make a DB call and fill it up
 	// the dashbaord (skeleton)
 	events.Get("/", func(c *fiber.Ctx) error {
-		templ := base.Base("Events Dashboard", "Events Dashboard", nil, eventss.EventsSkeleton())
+		templ := base.Base("Events Dashboard", "Events Dashboard", eventss.EventsSkeleton())
 		return renderHTML(c, templ)
 	}) // /events
 	events.Get("data", func(c *fiber.Ctx) error {
@@ -42,7 +42,7 @@ func SetupEventsHandlers(server *TASServer) {
 		eventId := c.Params("event_id")
 		slog.Info("Request to event " + eventId)
 
-		templ := base.Base("Event Infomation", "Event Information", nil, eventss.EventSkeleton("/events/data/1"))
+		templ := base.Base("Event Infomation", "Event Information", eventss.EventSkeleton("/events/data/1"))
 		return renderHTML(c, templ)
 	}) // /events/:event_id<min(0)>
 	events.Get("/data/:event_id<min(0)>", func(c *fiber.Ctx) error {

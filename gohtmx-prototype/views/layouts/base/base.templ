@@ -1,7 +1,6 @@
 package base
 
 import (
-	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/db"
 	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/components/headers"
 	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/components/footers"
 )
@@ -12,7 +11,7 @@ import (
 // Pass in the metaDescription for extra search engine optimizations
 // Pass in the user so we can show epic user-type information
 // Pass in the children!
-templ Base(title string, metaDescription string, user *db.User, children ...templ.Component) {
+templ Base(title string, metaDescription string, children ...templ.Component) {
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>

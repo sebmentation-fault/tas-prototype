@@ -11,7 +11,6 @@ import "io"
 import "bytes"
 
 import (
-	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/pkg/db"
 	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/components/footers"
 	"github.com/sebmentation-fault/tas-prototype/gohtmx-prototype/views/components/headers"
 )
@@ -22,7 +21,7 @@ import (
 // Pass in the metaDescription for extra search engine optimizations
 // Pass in the user so we can show epic user-type information
 // Pass in the children!
-func Base(title string, metaDescription string, user *db.User, children ...templ.Component) templ.Component {
+func Base(title string, metaDescription string, children ...templ.Component) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -42,7 +41,7 @@ func Base(title string, metaDescription string, user *db.User, children ...templ
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/base/base.templ`, Line: 19, Col: 17}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/base/base.templ`, Line: 18, Col: 17}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -55,7 +54,7 @@ func Base(title string, metaDescription string, user *db.User, children ...templ
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(metaDescription)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/base/base.templ`, Line: 22, Col: 53}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/base/base.templ`, Line: 21, Col: 53}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {

@@ -29,7 +29,7 @@ func SetupAuthHandlers(server *TASServer) {
 		// Why?
 		// I do not want to refresh the whole page when they do signup -> login
 		// Instead, let's just change the form element using fancy HTMX
-		return renderHTML(c, base.Base("Log in/Sign up", "Log in and Sign up", nil, login.LogInTempl()))
+		return renderHTML(c, base.Base("Log in/Sign up", "Log in and Sign up", login.LogInTempl()))
 	}) // /auth
 
 	// get the components for the forms
